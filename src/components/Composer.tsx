@@ -5,7 +5,7 @@ import { useChat, type ThreadKey } from "../store/chat";
 import { profile } from "../content/profile";
 
 export function threadForPath(pathname: string): ThreadKey | null {
-  if (pathname === "/") return "home";
+  if (pathname === "/chat") return "home";
   if (pathname === "/projects") return "projects";
   if (pathname === "/about") return "about";
   return null;
@@ -40,7 +40,7 @@ export default function Composer() {
       void ask(key, q);
     } else {
       // On a project page (or 404) the conversation continues on the home thread.
-      navigate(`/?q=${encodeURIComponent(q)}`);
+      navigate(`/chat?q=${encodeURIComponent(q)}`);
     }
   }
 

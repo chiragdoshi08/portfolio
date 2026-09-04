@@ -52,11 +52,19 @@ export const profile = {
     "0→1 business launches",
     "Operating-model design",
   ],
+  // Offer-led headline used by the Classic and Desktop views (the chat keeps the friendlier intro).
+  offerHeadline: "I help businesses put AI to work — from the adoption roadmap to the deployed workflow.",
+  offerSub:
+    "Operator first, advisor second: I've owned an ₹80Cr+ monthly P&L, led 400+ people, launched businesses from zero — and now lead enterprise GenAI adoption at M3M.",
+  // How the chat answers "is he open to roles?" — an open door, not a sign in the window.
+  openTo:
+    "Chirag is at M3M and takes on select advisory work through Topmate. For anything beyond that, the fastest route is a short note on LinkedIn or email.",
   email: "chiragdoshi2008@gmail.com",
   phone: "+91 7709786158",
   showPhone: false,
   linkedin: "https://www.linkedin.com/in/chiragdoshi08",
   linkedinHandle: "chiragdoshi08",
+  topmate: "https://topmate.io/chiragdoshi", // TODO: replace with the real Topmate profile URL
   github: "",
   resumeUrl: "/resume/chirag-doshi-cv.pdf",
   siteUrl: "https://chiragdoshi.in", // update once you own a domain
@@ -64,6 +72,70 @@ export const profile = {
   aboutPhoto: "/images/about.jpg",
   iimaPhoto: "/images/iima-books.jpg",
 };
+
+/** Quick-scan facts for the Classic hero strip and the Desktop readme. */
+export const glance: Metric[] = [
+  { value: "12+ yrs", label: "Building & scaling businesses" },
+  { value: "₹80Cr+", label: "Monthly P&L owned" },
+  { value: "400+", label: "People led" },
+  { value: "300+", label: "Users on Claude at M3M" },
+  { value: "IIM A", label: "PGPX · top 5%" },
+];
+
+export type Offer = {
+  id: string;
+  title: string;
+  who: string;
+  what: string[];
+  format: string;
+  proof: string; // the project/role that backs this offer
+  topmatePath: string; // appended to profile.topmate — update to the real Topmate service slug
+  aliases: string[];
+};
+
+/** "How I can help" — the consulting / mentoring offers. Prices live on Topmate, not here. */
+export const offers: Offer[] = [
+  {
+    id: "genai-adoption",
+    title: "GenAI adoption for leadership teams",
+    who: "CXOs and function heads who want AI in the operating model, not in a pilot.",
+    what: ["Use-case mapping by impact and feasibility", "Platform and governance choices", "Capability-building so teams ship their own workflows"],
+    format: "60-min diagnostic call, or a 2-week adoption sprint",
+    proof: "Rolled out Claude to 300+ users across 23 departments at M3M.",
+    topmatePath: "",
+    aliases: ["genai adoption", "ai adoption", "ai roadmap", "ai strategy", "rollout", "leadership team"],
+  },
+  {
+    id: "decision-tools",
+    title: "AI decision tools & workflow automation",
+    who: "Teams with a slow, judgement-heavy process that runs on spreadsheets and email.",
+    what: ["Map the process and its decision points", "Design the tool: rules where rules work, models where judgement is needed", "Ship a working version and measure the time saved"],
+    format: "Scoping call, then a 3–6 week build engagement",
+    proof: "A 2-day land-deal evaluation now runs in under 5 minutes and powers 50+ deals a month.",
+    topmatePath: "",
+    aliases: ["automation", "workflow", "decision tool", "internal tool", "process", "spreadsheet", "manual process"],
+  },
+  {
+    id: "ops-turnaround",
+    title: "Ops & P&L turnaround, 0→1 launches",
+    who: "Founders and business heads scaling a new vertical or fixing unit economics.",
+    what: ["Operating playbooks, cadences and dashboards", "Margin and working-capital levers", "Launch sequencing across cities and channels"],
+    format: "Advisory retainer or a focused 4-week sprint",
+    proof: "FOCO retail to CM2 in 8 months; Quick Commerce to ₹1.2Cr monthly GMV in 4 months; PharmEasyOne to ₹60Cr GMV in 12.",
+    topmatePath: "",
+    aliases: ["turnaround", "unit economics", "p&l help", "operations help", "launch", "scale", "expansion", "new vertical"],
+  },
+  {
+    id: "mentoring",
+    title: "Career mentoring — MBA and ops → strategy moves",
+    who: "PGPX/MBA aspirants and mid-career operators moving into strategy or transformation roles.",
+    what: ["Application and essay reviews", "Career-move planning", "Mock interviews for ops, strategy and PM roles"],
+    format: "30- or 60-min calls on Topmate",
+    proof: "IIM Ahmedabad PGPX 2025–26, Academic Merit Award and Exit Scholarship (top 5%).",
+    topmatePath: "",
+    aliases: ["mentor", "mentoring", "mentorship", "pgpx", "mba admission", "essay", "mock interview", "career advice", "guidance"],
+  },
+];
 
 export const roles: Role[] = [
   {
@@ -553,11 +625,11 @@ export const achievements = [
 
 export const suggestions = {
   home: [
+    "How can you help my company?",
     "Walk me through your career",
     "What are you working on at M3M?",
     "Show me your AI projects",
-    "What did you do at PharmEasy?",
-    "How can I reach you?",
+    "How do I book a call?",
   ],
   projects: [
     "Tell me about the land-deal engine",

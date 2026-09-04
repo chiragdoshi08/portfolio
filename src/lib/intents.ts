@@ -8,7 +8,7 @@
 //   2. Keyword intents — scored, with "!strong" terms (company names, topic
 //      words) required for longer questions so filler like "work" never wins.
 
-import { profile, projects, roles, suggestions, type Role } from "../content/profile";
+import { offers, profile, projects, roles, suggestions, type Role } from "../content/profile";
 import { tokenize } from "./retrieval";
 
 export type Block =
@@ -21,6 +21,7 @@ export type Block =
   | { type: "achievements" }
   | { type: "contact" }
   | { type: "resume" }
+  | { type: "offers"; ids?: string[] }
   | { type: "chips"; items: string[] };
 
 type Intent = {
@@ -299,11 +300,31 @@ const intents: Intent[] = [
     respond: () => [{ type: "achievements" }, { type: "chips", items: ["Walk me through his career", "Show me his projects"] }],
   },
   {
+    id: "offers",
+    priority: 3,
+    keywords: ["!consult", "!consulting", "!consultancy", "!consultant", "!advisory", "!advise", "!advisor", "!services", "!service", "!offer", "!offers", "!work with you", "!work with him", "!work together", "!help my", "!help us", "!help our", "!help me", "!engage", "!engagement", "!fractional", "!how can you help", "!what do you offer", "!what can you do for", "!topmate", "!book a call", "!book a session", "!book", "!session", "!rates", "!pricing", "!price", "!charges", "!fees", "!cost of", ...offers.flatMap((o) => o.aliases.map((a) => `!${a}`))],
+    respond: (q) => {
+      const hit = offers.find((o) => o.aliases.some((a) => q.includes(a)));
+      const blocks: Block[] = [
+        { type: "text", text: hit ? `Yes — that's exactly the kind of work ${firstName} takes on. Here's how it usually runs:` : `${firstName} works with leadership teams and founders in four ways. Pick the one closest to your situation — every one starts with a call on Topmate.` },
+        { type: "offers", ids: hit ? [hit.id] : undefined },
+        { type: "chips", items: hit ? ["What else do you offer?", "Show me the proof behind this", "How can I reach you?"] : ["Show me your AI projects", "Walk me through your career", "How can I reach you?"] },
+      ];
+      return blocks;
+    },
+  },
+  {
+    id: "open-to",
+    priority: 3,
+    keywords: ["!open to", "!opportunities", "!opportunity", "!looking for", "!job change", "!new role", "!available for", "!hiring him", "!recruit", "!notice period", "!relocat", "!remote", "!full time", "!full-time", "!join us", "!join our", "!interested in a role", "!considering roles", "!ctc", "!expected salary"],
+    respond: () => [{ type: "text", text: profile.openTo }, { type: "contact" }],
+  },
+  {
     id: "contact",
     priority: 2,
-    keywords: ["!contact", "!reach", "!email", "!e-mail", "!mail", "!linkedin", "!connect", "!hire", "!hiring", "!get in touch", "!talk to", "!call", "!phone", "!number", "!meet", "!coffee", "!available", "!open to", "!opportunities", "!where is he based", "!where are you based", "!location", "!based", "!gurgaon", "!which city", "!relocat", "!remote", "!notice period"],
+    keywords: ["!contact", "!reach", "!email", "!e-mail", "!mail", "!linkedin", "!connect", "!hire", "!hiring", "!get in touch", "!talk to", "!call", "!phone", "!number", "!meet", "!coffee", "!available", "!where is he based", "!where are you based", "!location", "!based", "!gurgaon", "!which city"],
     respond: () => [
-      { type: "text", text: `The easiest way is email or LinkedIn — ${firstName} is based in ${profile.location} and open to conversations about strategy, transformation and AI roles.` },
+      { type: "text", text: `Easiest is to book a call on Topmate, or drop a note on LinkedIn or email — ${firstName} is based in ${profile.location}.` },
       { type: "contact" },
     ],
   },

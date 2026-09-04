@@ -97,6 +97,13 @@ body {
   }
 }
 
+/* Desktop view: faint grid paper */
+.desktop-bg {
+  background-color: var(--bg);
+  background-image: linear-gradient(to right, var(--line) 1px, transparent 1px), linear-gradient(to bottom, var(--line) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
 /* Typing indicator */
 @keyframes blink {
   0%,

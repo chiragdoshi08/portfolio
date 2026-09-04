@@ -1,7 +1,7 @@
 // Tiny BM25 retriever over the profile content. Pure TypeScript with no browser
 // or Node dependencies so it can run both in the SPA and in the serverless function.
 
-import { achievements, education, profile, projects, roles, skills } from "../content/profile";
+import { achievements, education, offers, profile, projects, roles, skills } from "../content/profile";
 
 export type Chunk = { id: string; title: string; text: string };
 
@@ -44,6 +44,18 @@ export function buildChunks(): Chunk[] {
       text: `${p.title}. ${p.tagline}. ${p.company}, ${p.period}. ${p.category}. ${p.summary} Problem: ${p.problem} Approach: ${p.approach.join(" ")} Outcome: ${p.outcome.join(" ")} Metrics: ${p.metrics.map((m) => `${m.label} ${m.value}`).join("; ")}. Also known as: ${p.aliases.join(", ")}.`,
     });
   }
+  for (const o of offers) {
+    chunks.push({
+      id: `offer:${o.id}`,
+      title: `How Chirag can help: ${o.title}`,
+      text: `${o.title}. For: ${o.who} Includes: ${o.what.join("; ")}. Format: ${o.format}. Proof: ${o.proof} Book via Topmate at ${profile.topmate}. Pricing and availability are on Topmate, not on this site. Also known as: ${o.aliases.join(", ")}.`,
+    });
+  }
+  chunks.push({
+    id: "availability",
+    title: "Availability and opportunities",
+    text: `${profile.openTo} Chirag is based in ${profile.location}.`,
+  });
   chunks.push({
     id: "skills",
     title: "Skills",

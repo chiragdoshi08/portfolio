@@ -20,7 +20,7 @@ export default function ProjectDetail() {
 
   const prev = projects[(idx - 1 + projects.length) % projects.length];
   const next = projects[(idx + 1) % projects.length];
-  const askUrl = (q: string) => `/?q=${encodeURIComponent(q)}`;
+  const askUrl = (q: string) => `/chat?q=${encodeURIComponent(q)}`;
 
   return (
     <motion.article

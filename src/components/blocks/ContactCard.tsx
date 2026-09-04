@@ -1,4 +1,4 @@
-import { Mail, MapPin, Download, Phone } from "lucide-react";
+import { Mail, MapPin, Download, Phone, CalendarDays } from "lucide-react";
 import { profile } from "../../content/profile";
 import { LinkedInIcon } from "../icons";
 
@@ -8,7 +8,10 @@ export default function ContactCard() {
   return (
     <div className="rounded-2xl rounded-tl-md bg-surface p-5 shadow-card">
       <div className="flex flex-wrap gap-2">
-        <a href={`mailto:${profile.email}?subject=Hello%20Chirag`} className={`${btn} !bg-accent !text-accent-fg !border-transparent hover:opacity-90`}>
+        <a href={profile.topmate} target="_blank" rel="noreferrer noopener" className={`${btn} !bg-accent !text-accent-fg !border-transparent hover:opacity-90`}>
+          <CalendarDays size={16} aria-hidden="true" /> Book a call on Topmate
+        </a>
+        <a href={`mailto:${profile.email}?subject=Hello%20Chirag`} className={btn}>
           <Mail size={16} aria-hidden="true" /> {profile.email}
         </a>
         <a href={profile.linkedin} target="_blank" rel="noreferrer noopener" className={btn}>

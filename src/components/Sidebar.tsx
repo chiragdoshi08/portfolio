@@ -4,7 +4,7 @@ import { profile } from "../content/profile";
 import { LinkedInIcon } from "./icons";
 
 const nav = [
-  { to: "/", label: "Home", icon: Home },
+  { to: "/chat", label: "Home", icon: Home },
   { to: "/projects", label: "Projects", icon: FolderKanban },
   { to: "/about", label: "About & resume", icon: FileText },
 ];
@@ -38,7 +38,7 @@ export default function Sidebar() {
       </NavLink>
 
       {nav.map(({ to, label, icon: Icon }) => (
-        <NavLink key={to} to={to} end={to === "/"} aria-label={label} className={itemClass}>
+        <NavLink key={to} to={to} aria-label={label} className={itemClass}>
           <Icon size={20} aria-hidden="true" />
           <Tooltip label={label} />
         </NavLink>

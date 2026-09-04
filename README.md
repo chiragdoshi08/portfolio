@@ -1,8 +1,14 @@
 # Chirag Doshi — portfolio
 
-A conversational portfolio: visitors ask questions, the site answers with cards (bio, timeline, projects, contact). Built with React 19, Vite, Tailwind v4, Framer Motion and Zustand; deploys to Vercel for free.
+One profile, three interfaces — the same content (`src/content/profile.ts`) rendered three ways, switchable from the top bar:
 
-## How the "chat" works (near-zero running cost)
+- **Classic** (`/`, default) — editorial one-pager: offer-led hero, at-a-glance stats, "How I can help" with Topmate booking, selected work, career, contact.
+- **Chat** (`/chat`, `/projects`, `/about`) — ask questions, get answers as cards.
+- **Desktop** (`/desktop`) — draggable windows, a dock, and a working terminal (`help`, `experience pharmeasy`, `projects --tag ai`, or any question) that runs on the same intent engine.
+
+Built with React 19, Vite, Tailwind v4, Framer Motion and Zustand; deploys to Vercel for free. Consulting/mentoring offers live in `offers` in `profile.ts`; set `profile.topmate` (and per-offer `topmatePath`) to your real Topmate URLs.
+
+## How the chat (and terminal) answer questions — near-zero running cost
 
 1. **Scripted intents (free, instant)** — `src/lib/intents.ts` matches the question against keywords/aliases and returns pre-built blocks. This covers ~95% of what visitors ask.
 2. **Claude fallback (optional, cents/month)** — unmatched questions POST to `api/chat.ts`, a Vercel function that asks Claude Haiku 4.5, grounded *only* in the site's content (`src/content/profile.ts`). Short outputs, cached system prompt, per-IP + daily rate limits. Requires `ANTHROPIC_API_KEY`.
