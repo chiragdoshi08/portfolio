@@ -33,7 +33,7 @@ export default function OffersGrid({ ids, columns = 1 }: { ids?: string[]; colum
             rel="noreferrer noopener"
             className="mt-4 inline-flex w-fit items-center gap-2 rounded-xl bg-fg px-3.5 py-2 text-sm font-medium text-bg transition-opacity hover:opacity-90"
           >
-            <CalendarDays size={15} aria-hidden="true" /> Book on Topmate
+            <CalendarDays size={15} aria-hidden="true" /> Book: {o.topmateService}
           </a>
         </li>
       ))}

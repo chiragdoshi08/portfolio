@@ -64,10 +64,11 @@ export const profile = {
   showPhone: false,
   linkedin: "https://www.linkedin.com/in/chiragdoshi08",
   linkedinHandle: "chiragdoshi08",
-  topmate: "https://topmate.io/chiragdoshi", // TODO: replace with the real Topmate profile URL
+  topmate: "https://topmate.io/chiragdoshi08",
   github: "",
   resumeUrl: "/resume/chirag-doshi-cv.pdf",
-  siteUrl: "https://chiragdoshi.in", // update once you own a domain
+  siteUrl: "https://chiragdoshi.com",
+  topmateDm: "https://topmate.io/chiragdoshi08/2015787", // Priority DM — quick questions
   avatar: "/images/avatar.jpg",
   aboutPhoto: "/images/about.jpg",
   iimaPhoto: "/images/iima-books.jpg",
@@ -89,7 +90,8 @@ export type Offer = {
   what: string[];
   format: string;
   proof: string; // the project/role that backs this offer
-  topmatePath: string; // appended to profile.topmate — update to the real Topmate service slug
+  topmatePath: string; // Topmate service id, appended to profile.topmate (e.g. "2276465")
+  topmateService: string; // the service name as it appears on Topmate
   aliases: string[];
 };
 
@@ -100,9 +102,10 @@ export const offers: Offer[] = [
     title: "GenAI adoption for leadership teams",
     who: "CXOs and function heads who want AI in the operating model, not in a pilot.",
     what: ["Use-case mapping by impact and feasibility", "Platform and governance choices", "Capability-building so teams ship their own workflows"],
-    format: "60-min diagnostic call, or a 2-week adoption sprint",
+    format: "Start with a 45-min session; longer engagements by arrangement",
     proof: "Rolled out Claude to 300+ users across 23 departments at M3M.",
-    topmatePath: "",
+    topmatePath: "2276465",
+    topmateService: "Practical AI Strategy Session",
     aliases: ["genai adoption", "ai adoption", "ai roadmap", "ai strategy", "rollout", "leadership team"],
   },
   {
@@ -110,9 +113,10 @@ export const offers: Offer[] = [
     title: "AI decision tools & workflow automation",
     who: "Teams with a slow, judgement-heavy process that runs on spreadsheets and email.",
     what: ["Map the process and its decision points", "Design the tool: rules where rules work, models where judgement is needed", "Ship a working version and measure the time saved"],
-    format: "Scoping call, then a 3–6 week build engagement",
+    format: "45-min scoping session first; build engagements by arrangement",
     proof: "A 2-day land-deal evaluation now runs in under 5 minutes and powers 50+ deals a month.",
-    topmatePath: "",
+    topmatePath: "2276465",
+    topmateService: "Practical AI Strategy Session",
     aliases: ["automation", "workflow", "decision tool", "internal tool", "process", "spreadsheet", "manual process"],
   },
   {
@@ -120,9 +124,10 @@ export const offers: Offer[] = [
     title: "Ops & P&L turnaround, 0→1 launches",
     who: "Founders and business heads scaling a new vertical or fixing unit economics.",
     what: ["Operating playbooks, cadences and dashboards", "Margin and working-capital levers", "Launch sequencing across cities and channels"],
-    format: "Advisory retainer or a focused 4-week sprint",
+    format: "45-min problem-solving session; ongoing advisory by arrangement",
     proof: "FOCO retail to CM2 in 8 months; Quick Commerce to ₹1.2Cr monthly GMV in 4 months; PharmEasyOne to ₹60Cr GMV in 12.",
-    topmatePath: "",
+    topmatePath: "2276464",
+    topmateService: "Operations & Business Strategy Consultation",
     aliases: ["turnaround", "unit economics", "p&l help", "operations help", "launch", "scale", "expansion", "new vertical"],
   },
   {
@@ -130,9 +135,10 @@ export const offers: Offer[] = [
     title: "Career mentoring — MBA and ops → strategy moves",
     who: "PGPX/MBA aspirants and mid-career operators moving into strategy or transformation roles.",
     what: ["Application and essay reviews", "Career-move planning", "Mock interviews for ops, strategy and PM roles"],
-    format: "30- or 60-min calls on Topmate",
+    format: "45-min video call; quick questions via Priority DM",
     proof: "IIM Ahmedabad PGPX 2025–26, Academic Merit Award and Exit Scholarship (top 5%).",
-    topmatePath: "",
+    topmatePath: "2015768",
+    topmateService: "MBA Prep & Career Strategy",
     aliases: ["mentor", "mentoring", "mentorship", "pgpx", "mba admission", "essay", "mock interview", "career advice", "guidance"],
   },
 ];

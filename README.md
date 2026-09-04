@@ -21,7 +21,7 @@ Everything the site says lives in **`src/content/profile.ts`** — bio, roles, p
 - Add a project → add an entry to `projects` (the `aliases` array is what the chat matches on) and a `<url>` to `public/sitemap.xml`.
 - Replace the resume → overwrite `public/resume/chirag-doshi-cv.pdf`.
 - Replace photos → `public/images/avatar.jpg` (square) and `about.jpg`.
-- Change the domain → search-and-replace `chiragdoshi.in` in `index.html`, `public/sitemap.xml`, `public/robots.txt`, `src/content/profile.ts`.
+- Change the domain → search-and-replace `chiragdoshi.com` in `index.html`, `public/sitemap.xml`, `public/robots.txt`, `src/content/profile.ts`.
 
 ## Develop
 

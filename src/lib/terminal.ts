@@ -51,7 +51,7 @@ export function blocksToLines(blocks: Block[]): TermLine[] {
       }
       case "offers": {
         const list = b.ids ? offers.filter((o) => b.ids!.includes(o.id)) : offers;
-        for (const o of list) out.push({ kind: "title", text: o.title }, { kind: "out", text: `  ${o.who}` }, { kind: "muted", text: `  Format: ${o.format}` }, { kind: "link", text: "  → book on Topmate", href: topmateUrl(o) });
+        for (const o of list) out.push({ kind: "title", text: o.title }, { kind: "out", text: `  ${o.who}` }, { kind: "muted", text: `  Format: ${o.format}` }, { kind: "link", text: `  → book "${o.topmateService}" on Topmate`, href: topmateUrl(o) });
         break;
       }
       case "skills":
