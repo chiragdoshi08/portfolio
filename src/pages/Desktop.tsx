@@ -18,14 +18,15 @@ const WINDOWS: WinDef[] = [
   { id: "readme", title: "readme.md — start here", icon: FileText, x: 24, y: 24, w: 440, defaultOpen: true },
   { id: "projects", title: "projects/ — what I've led", icon: FolderKanban, x: 500, y: 400, w: 620, defaultOpen: true },
   { id: "terminal", title: `${profile.firstName.toLowerCase()}@portfolio: ~`, icon: TerminalIcon, x: 700, y: 24, w: 520, defaultOpen: true },
-  { id: "career", title: "career.log", icon: Briefcase, x: 60, y: 420, w: 560, defaultOpen: false },
-  { id: "book", title: "book-a-call — how I can help", icon: CalendarDays, x: 140, y: 120, w: 620, defaultOpen: false },
-  { id: "photo", title: "IMG_2026.jpg", icon: ImageIcon, x: 760, y: 140, w: 360, defaultOpen: false },
+  { id: "career", title: "career.log", icon: Briefcase, x: 60, y: 200, w: 560, defaultOpen: false },
+  { id: "book", title: "book-a-call — how I can help", icon: CalendarDays, x: 140, y: 100, w: 640, defaultOpen: false },
+  { id: "photo", title: "IMG_2026.jpg", icon: ImageIcon, x: 760, y: 120, w: 340, defaultOpen: false },
 ];
 
 export default function Desktop() {
   const [open, setOpen] = useState<WinId[]>(() => WINDOWS.filter((w) => w.defaultOpen).map((w) => w.id)); // order = z-order (last on top)
   const [isMobile, setIsMobile] = useState(() => typeof window !== "undefined" && window.innerWidth < 900);
+  const areaRef = useRef<HTMLDivElement>(null); // windows are confined to this area, which ends above the dock
   const navigate = useNavigate();
   const { toggle } = useTheme();
   const reduce = useReducedMotion();
@@ -83,26 +84,35 @@ export default function Desktop() {
         // Phones: windows stack as cards — dragging tiny windows on a touch screen is a bad time.
         <div className="mx-auto flex max-w-2xl flex-col gap-4 px-3 py-4 pb-28">
           {WINDOWS.filter((w) => open.includes(w.id)).map((w) => (
-            <WindowChrome key={w.id} def={w} onClose={() => close(w.id)} onFocus={() => focus(w.id)} stacked>
+            <WindowChrome key={w.id} def={w} onClose={() => close(w.id)} onFocus={() => focus(w.id)}>
               {content[w.id]}
             </WindowChrome>
           ))}
         </div>
       ) : (
-        <div className="relative h-[calc(100dvh-3.5rem)] pb-24">
+        // Desktop: the area stops 6rem above the viewport bottom, leaving the dock its own lane.
+        <div ref={areaRef} className="relative h-[calc(100dvh-3.5rem-6rem)] overflow-hidden">
           {WINDOWS.filter((w) => open.includes(w.id)).map((w) => (
             <motion.div
               key={w.id}
               drag
               dragMomentum={false}
               dragElastic={0}
-              dragConstraints={{ left: -200, top: 0, right: 1400, bottom: 900 }}
+              dragConstraints={areaRef}
               initial={reduce ? false : { opacity: 0, scale: 0.98 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.2 }}
               onPointerDown={() => focus(w.id)}
-              style={{ position: "absolute", left: w.x, top: w.y, width: w.w, zIndex: 10 + open.indexOf(w.id) }}
-              className="max-w-[calc(100vw-2rem)]"
+              style={{
+                position: "absolute",
+                left: w.x,
+                top: w.y,
+                width: w.w,
+                zIndex: 10 + open.indexOf(w.id),
+                // Never taller than the space below the window's top edge — content scrolls inside instead.
+                maxHeight: `calc(100dvh - 3.5rem - 6rem - ${w.y}px)`,
+              }}
+              className="flex max-w-[calc(100vw-2rem)] flex-col"
             >
               <WindowChrome def={w} onClose={() => close(w.id)} onFocus={() => focus(w.id)} active={open[open.length - 1] === w.id}>
                 {content[w.id]}
@@ -146,12 +156,12 @@ export default function Desktop() {
   );
 }
 
-function WindowChrome({ def, children, onClose, onFocus, active, stacked }: { def: WinDef; children: ReactNode; onClose: () => void; onFocus: () => void; active?: boolean; stacked?: boolean }) {
+function WindowChrome({ def, children, onClose, onFocus, active }: { def: WinDef; children: ReactNode; onClose: () => void; onFocus: () => void; active?: boolean }) {
   return (
     <section
       aria-label={def.title}
       onFocus={onFocus}
-      className={`flex flex-col overflow-hidden rounded-2xl border bg-surface shadow-card ${active ? "border-fg/30" : "border-line"} ${stacked ? "" : "max-h-[calc(100dvh-9rem)]"}`}
+      className={`flex min-h-0 flex-col overflow-hidden rounded-2xl border bg-surface shadow-card ${active ? "border-fg/30" : "border-line"}`}
     >
       <header className="flex h-10 shrink-0 cursor-grab items-center gap-2 border-b border-line bg-surface-2 px-3 active:cursor-grabbing">
         <div className="flex items-center gap-1.5">
