@@ -1,0 +1,50 @@
+<!--
+  Social preview template (1200×630). Render with headless Chrome:
+  "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless=new --disable-gpu \
+     --window-size=1200,630 --screenshot=public/og-image.png "file://$PWD/scripts/og.html"
+-->
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <style>
+      * { box-sizing: border-box; margin: 0; }
+      html, body { width: 1200px; height: 630px; overflow: hidden; }
+      body {
+        font-family: "Inter", -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+        background: #f7f6f3;
+        color: #1a1917;
+        display: flex;
+        padding: 64px 72px;
+        position: relative;
+      }
+      .rail { position: absolute; left: 0; top: 0; bottom: 0; width: 14px; background: #0f766e; }
+      .left { flex: 1; display: flex; flex-direction: column; justify-content: space-between; padding-right: 48px; }
+      .eyebrow { font-size: 22px; font-weight: 600; color: #0f766e; letter-spacing: 0.02em; text-transform: uppercase; }
+      h1 { font-family: Georgia, "Times New Roman", serif; font-weight: 500; font-size: 84px; line-height: 1; letter-spacing: -0.02em; margin-top: 18px; }
+      .sub { margin-top: 22px; font-size: 30px; line-height: 1.35; color: #4a4744; max-width: 700px; }
+      .stats { display: flex; gap: 40px; }
+      .stat b { display: block; font-family: Georgia, serif; font-weight: 500; font-size: 40px; color: #0f766e; }
+      .stat span { font-size: 18px; color: #6b6864; }
+      .photo { width: 300px; height: 300px; border-radius: 40px; object-fit: cover; align-self: center; box-shadow: 0 30px 60px -30px rgba(0,0,0,.35); border: 6px solid #fff; }
+      .url { position: absolute; right: 72px; bottom: 56px; font-size: 20px; color: #6b6864; }
+    </style>
+  </head>
+  <body>
+    <div class="rail"></div>
+    <div class="left">
+      <div>
+        <div class="eyebrow">Strategy · P&amp;L · AI transformation</div>
+        <h1>Chirag Doshi</h1>
+        <p class="sub">I build and scale businesses — and bring Generative AI into how they actually run.</p>
+      </div>
+      <div class="stats">
+        <div class="stat"><b>₹80Cr+</b><span>monthly P&amp;L owned</span></div>
+        <div class="stat"><b>400+</b><span>member team led</span></div>
+        <div class="stat"><b>IIM A</b><span>PGPX, top 5%</span></div>
+      </div>
+    </div>
+    <img class="photo" src="../public/images/avatar.jpg" alt="" />
+    <div class="url">chiragdoshi.in</div>
+  </body>
+</html>
