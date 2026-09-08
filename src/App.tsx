@@ -4,7 +4,7 @@ import Sidebar from "./components/Sidebar";
 import TopBar from "./components/TopBar";
 import Composer from "./components/Composer";
 import { profile } from "./content/profile";
-import { modeForPath } from "./lib/modes";
+import { modeForPath, normalizePath } from "./lib/modes";
 
 const TITLES: Record<string, string> = {
   "/": `${profile.name} — ${profile.headline}`,
@@ -20,7 +20,7 @@ export default function App() {
   const mode = modeForPath(pathname);
 
   useEffect(() => {
-    const t = TITLES[pathname];
+    const t = TITLES[normalizePath(pathname)];
     if (t) document.title = t;
   }, [pathname]);
 

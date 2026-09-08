@@ -30,7 +30,13 @@ export const MODES: Array<{ id: Mode; label: string; path: string; blurb: string
 
 const CHAT_PATHS = ["/chat", "/projects", "/about"];
 
-export function modeForPath(pathname: string): View {
+/** GitHub Pages serves routes as folders, so direct loads arrive as "/chat/" — normalise that. */
+export function normalizePath(pathname: string): string {
+  return pathname.length > 1 ? pathname.replace(/\/+$/, "") : pathname;
+}
+
+export function modeForPath(rawPath: string): View {
+  const pathname = normalizePath(rawPath);
   if (pathname === "/") return "landing";
   if (pathname === "/desktop") return "desktop";
   if (CHAT_PATHS.includes(pathname) || pathname.startsWith("/project/")) return "chat";

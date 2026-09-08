@@ -2,9 +2,11 @@ import { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Send } from "lucide-react";
 import { useChat, type ThreadKey } from "../store/chat";
+import { normalizePath } from "../lib/modes";
 import { profile } from "../content/profile";
 
-export function threadForPath(pathname: string): ThreadKey | null {
+export function threadForPath(rawPath: string): ThreadKey | null {
+  const pathname = normalizePath(rawPath);
   if (pathname === "/chat") return "home";
   if (pathname === "/projects") return "projects";
   if (pathname === "/about") return "about";
