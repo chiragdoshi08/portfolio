@@ -25,9 +25,16 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run build
-      # GitHub Pages has no SPA rewrite rule: serving index.html as the 404 page
-      # lets /chat, /desktop, /project/... load directly.
-      - run: cp dist/index.html dist/404.html
+      # GitHub Pages has no SPA rewrite rule. Two measures so every route works:
+      #  1. a real index.html for each URL in the sitemap (returns 200, good for
+      #     link previews and search), 2. index.html as the 404 page for anything else.
+      - name: Pre-render route shells
+        run: |
+          for path in $(grep -o '<loc>[^<]*</loc>' public/sitemap.xml | sed -E 's#</?loc>##g; s#https://[^/]+##' | grep -v '^/$'); do
+            mkdir -p "dist$path" && cp dist/index.html "dist$path/index.html"
+          done
+          cp dist/index.html dist/404.html
+          find dist -name index.html | wc -l
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
