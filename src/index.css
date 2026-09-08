@@ -97,6 +97,12 @@ body {
   }
 }
 
+/* Landing: soft radial wash behind the chooser */
+.landing-bg {
+  background-color: var(--bg);
+  background-image: radial-gradient(ellipse 80% 50% at 50% -10%, color-mix(in srgb, var(--accent) 14%, transparent), transparent 70%);
+}
+
 /* Desktop view: faint grid paper */
 .desktop-bg {
   background-color: var(--bg);

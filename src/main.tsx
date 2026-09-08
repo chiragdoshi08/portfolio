@@ -3,6 +3,7 @@ import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./index.css";
 import App from "./App";
+import Landing from "./pages/Landing";
 import Classic from "./pages/Classic";
 import Home from "./pages/Home";
 import Desktop from "./pages/Desktop";
@@ -16,7 +17,8 @@ const router = createBrowserRouter([
     path: "/",
     element: <App />,
     children: [
-      { index: true, element: <Classic /> },
+      { index: true, element: <Landing /> },
+      { path: "classic", element: <Classic /> },
       { path: "chat", element: <Home /> },
       { path: "desktop", element: <Desktop /> },
       { path: "projects", element: <Projects /> },

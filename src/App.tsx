@@ -8,6 +8,7 @@ import { modeForPath } from "./lib/modes";
 
 const TITLES: Record<string, string> = {
   "/": `${profile.name} — ${profile.headline}`,
+  "/classic": `${profile.name} — ${profile.headline}`,
   "/chat": `Ask ${profile.firstName} — ${profile.name}`,
   "/desktop": `${profile.name} — Desktop`,
   "/projects": `Projects — ${profile.name}`,
@@ -22,6 +23,15 @@ export default function App() {
     const t = TITLES[pathname];
     if (t) document.title = t;
   }, [pathname]);
+
+  // The landing page is a full-screen chooser: no top bar or rail until a view is picked.
+  if (mode === "landing") {
+    return (
+      <div className="min-h-dvh w-full bg-bg text-fg">
+        <Outlet />
+      </div>
+    );
+  }
 
   return (
     <div className="flex h-full min-h-dvh w-full bg-bg text-fg">
