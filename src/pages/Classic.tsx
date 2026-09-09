@@ -2,7 +2,8 @@ import type { ReactNode } from "react";
 import { Link } from "react-router-dom";
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight, CalendarDays, Mail, MessageSquare } from "lucide-react";
-import { achievements, education, glance, profile, projects, suggestions } from "../content/profile";
+import { achievements, education, profile, projects, suggestions } from "../content/profile";
+import JourneyStrip from "../components/JourneyStrip";
 import OffersGrid from "../components/blocks/OffersGrid";
 import ProjectGrid from "../components/blocks/ProjectGrid";
 import ExperienceTimeline from "../components/blocks/ExperienceTimeline";
@@ -82,15 +83,10 @@ export default function Classic() {
         </motion.figure>
       </section>
 
-      {/* At a glance */}
-      <dl className="grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-5">
-        {glance.map((g) => (
-          <div key={g.label} className="bg-surface p-4 sm:p-5">
-            <dd className="font-display text-2xl leading-tight text-accent sm:text-3xl">{g.value}</dd>
-            <dt className="mt-1 text-xs leading-4 text-muted">{g.label}</dt>
-          </div>
-        ))}
-      </dl>
+      {/* Career arc */}
+      <div className="rounded-2xl border border-line bg-surface px-4 py-6 shadow-card sm:px-8">
+        <JourneyStrip />
+      </div>
 
       <Section id="offers" eyebrow="How I can help" title="Four ways we can work together" aside={<p className="max-w-sm text-sm text-muted">Every engagement starts with a call. Availability and pricing live on Topmate.</p>}>
         <OffersGrid columns={2} />
@@ -105,7 +101,7 @@ export default function Classic() {
         <ProjectGrid />
       </Section>
 
-      <Section id="career" eyebrow="Career" title="Twelve years, six chapters" aside={<p className="max-w-sm text-sm text-muted">From after-sales at General Motors to leading AI transformation. Tap a role to expand it.</p>}>
+      <Section id="career" eyebrow="Career" title="Thirteen years, seven chapters" aside={<p className="max-w-sm text-sm text-muted">From after-sales at General Motors to leading AI transformation. Tap a role to expand it.</p>}>
         <div className="grid gap-6 lg:grid-cols-[1.4fr_1fr]">
           <ExperienceTimeline />
           <div className="space-y-6">

@@ -2,7 +2,8 @@ import { useNavigate } from "react-router-dom";
 import { motion, useReducedMotion } from "framer-motion";
 import { LayoutTemplate, MessageSquare, TerminalSquare, ArrowRight, CalendarDays } from "lucide-react";
 import { MODES, recallMode, rememberMode, type Mode } from "../lib/modes";
-import { profile, glance } from "../content/profile";
+import { profile } from "../content/profile";
+import JourneyStrip from "../components/JourneyStrip";
 import { LinkedInIcon } from "../components/icons";
 
 const ICONS: Record<Mode, typeof LayoutTemplate> = { classic: LayoutTemplate, chat: MessageSquare, desktop: TerminalSquare };
@@ -33,14 +34,9 @@ export default function Landing() {
           <h1 className="font-display mt-5 text-4xl leading-tight sm:text-5xl">{profile.name}</h1>
           <p className="mt-2 text-sm font-semibold uppercase tracking-wider text-accent">{profile.headline}</p>
           <p className="mt-4 max-w-2xl text-lg leading-8 text-fg/85">{profile.offerHeadline}</p>
-          <dl className="mt-5 flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm text-muted">
-            {glance.map((g) => (
-              <div key={g.label} className="flex items-baseline gap-1.5">
-                <dd className="font-display text-lg text-fg">{g.value}</dd>
-                <dt>{g.label}</dt>
-              </div>
-            ))}
-          </dl>
+          <div className="mt-8 w-full max-w-4xl">
+            <JourneyStrip />
+          </div>
         </motion.header>
 
         <motion.p {...fade(0.1)} className="mt-12 text-center text-xs font-semibold uppercase tracking-wider text-muted">

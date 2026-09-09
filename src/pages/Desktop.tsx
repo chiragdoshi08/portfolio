@@ -2,7 +2,8 @@ import { useCallback, useEffect, useMemo, useRef, useState, type KeyboardEvent, 
 import { Link, useNavigate } from "react-router-dom";
 import { motion, useReducedMotion } from "framer-motion";
 import { FileText, Briefcase, FolderKanban, Terminal as TerminalIcon, CalendarDays, Image as ImageIcon, Sparkles, GraduationCap, Mail, X, Minus, CornerDownLeft } from "lucide-react";
-import { glance, offers, profile, projects } from "../content/profile";
+import { offers, profile, projects } from "../content/profile";
+import JourneyStrip from "../components/JourneyStrip";
 import ExperienceTimeline from "../components/blocks/ExperienceTimeline";
 import ProjectGrid from "../components/blocks/ProjectGrid";
 import OffersGrid from "../components/blocks/OffersGrid";
@@ -222,14 +223,9 @@ function Readme({ onOpen }: { onOpen: (id: WinId) => void }) {
           See the {offers.length} offers
         </button>
       </div>
-      <dl className="mt-5 flex flex-wrap gap-x-6 gap-y-3 border-t border-line pt-4">
-        {glance.map((g) => (
-          <div key={g.label}>
-            <dd className="font-display text-xl leading-tight text-accent">{g.value}</dd>
-            <dt className="mt-0.5 text-[11px] leading-4 text-muted">{g.label}</dt>
-          </div>
-        ))}
-      </dl>
+      <div className="mt-5 border-t border-line pt-4">
+        <JourneyStrip compact align="left" />
+      </div>
     </div>
   );
 }

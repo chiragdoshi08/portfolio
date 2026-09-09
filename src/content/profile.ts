@@ -42,7 +42,7 @@ export const profile = {
   intro:
     "Hi, I'm Chirag. I build and scale businesses — and these days I spend most of my time bringing Generative AI into how they actually run.",
   summary:
-    "Strategy and business transformation leader with 12+ years across consumer tech, healthcare and digital businesses. I've owned an ₹80Cr+ monthly P&L, led a 400+ member cross-functional organisation, launched businesses from zero, and now lead enterprise GenAI adoption — building AI-powered decision tools that compress multi-day processes into minutes.",
+    "Strategy and business transformation leader with 13+ years across consumer tech, healthcare and digital businesses. I've owned an ₹80Cr+ monthly P&L, led a 400+ member cross-functional organisation, launched businesses from zero, and now lead enterprise GenAI adoption — building AI-powered decision tools that compress multi-day processes into minutes.",
   currently:
     "Business Transformation Lead in the Management Office at M3M, where I lead enterprise-wide Generative AI adoption and build AI decision tools. Recently completed the one-year MBA (PGPX) at IIM Ahmedabad, graduating in the top 5% of the batch.",
   focusAreas: [
@@ -73,9 +73,22 @@ export const profile = {
   iimaPhoto: "/images/iima-books.jpg",
 };
 
-/** Quick-scan facts for the Classic hero strip and the Desktop readme. */
+/** The career as a ribbon of chapters — shown instead of a scoreboard of numbers. */
+export type Chapter = { year: string; name: string; note: string; roleId?: string };
+export const journeyLine = "Thirteen years, seven chapters: from dealer networks to enterprise AI.";
+export const journey: Chapter[] = [
+  { year: "2013", name: "General Motors", note: "After-sales", roleId: "gm" },
+  { year: "2015", name: "OYO Rooms", note: "Market P&L", roleId: "oyo" },
+  { year: "2018", name: "TOIKIT", note: "Founder", roleId: "toikit" },
+  { year: "2019", name: "Medtrail", note: "VP Operations", roleId: "medtrail" },
+  { year: "2021", name: "PharmEasy", note: "Business Head", roleId: "pharmeasy" },
+  { year: "2025", name: "IIM Ahmedabad", note: "PGPX" },
+  { year: "2026", name: "M3M", note: "AI Transformation", roleId: "m3m" },
+];
+
+/** Quick-scan facts (kept for the terminal's whoami; no longer shown as a strip). */
 export const glance: Metric[] = [
-  { value: "12+ yrs", label: "Building & scaling businesses" },
+  { value: "13+ yrs", label: "Building & scaling businesses" },
   { value: "₹80Cr+", label: "Monthly P&L owned" },
   { value: "400+", label: "People led" },
   { value: "300+", label: "Users on Claude at M3M" },

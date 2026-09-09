@@ -245,7 +245,7 @@ const intents: Intent[] = [
     priority: 1,
     keywords: ["!career", "!experience", "!work history", "!journey", "!resume", "!cv", "!walk me through", "!career path", "!professional background", "!worked", "!companies", "!roles", "!timeline", "!jobs", "!employment", "!employers", "!trajectory", "!career summary"],
     respond: () => [
-      { type: "text", text: `Here's ${firstName}'s career — 12+ years from after-sales at General Motors to founding a D2C brand, running an ₹80Cr+ monthly P&L, an MBA at IIM Ahmedabad, and now leading AI transformation at M3M.` },
+      { type: "text", text: `Here's ${firstName}'s career — 13+ years from after-sales at General Motors to founding a D2C brand, running an ₹80Cr+ monthly P&L, an MBA at IIM Ahmedabad, and now leading AI transformation at M3M.` },
       { type: "experience" },
       { type: "education" },
       { type: "text", text: "If any of this is relevant to what you're building, the quickest next step is a call." },
