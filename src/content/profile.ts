@@ -66,7 +66,6 @@ export const profile = {
   linkedinHandle: "chiragdoshi08",
   topmate: "https://topmate.io/chiragdoshi08",
   github: "",
-  resumeUrl: "/resume/chirag-doshi-cv.pdf",
   siteUrl: "https://chiragdoshi.com",
   topmateDm: "https://topmate.io/chiragdoshi08/2015787", // Priority DM — quick questions
   avatar: "/images/avatar.jpg",
@@ -643,6 +642,8 @@ export const suggestions = {
     "What happened at Aknamed?",
     "Any side projects?",
   ],
-  about: ["What are your key skills?", "Tell me about IIM Ahmedabad", "Download your resume", "Show me your projects"],
+  about: ["What are your key skills?", "Tell me about IIM Ahmedabad", "How can we work together?", "Show me your projects"],
+  // One chip per section so the chat exposes everything Classic and Terminal show.
+  sections: ["How can you help my company?", "Walk me through your career", "Show me all your projects", "What are your key skills?", "Where did you study?", "Any awards?", "How can I reach you?"],
   afterProject: ["Show me another project", "What was your role there?", "How can I reach you?"],
 };

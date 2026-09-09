@@ -20,7 +20,6 @@ export type Block =
   | { type: "education" }
   | { type: "achievements" }
   | { type: "contact" }
-  | { type: "resume" }
   | { type: "offers"; ids?: string[] }
   | { type: "chips"; items: string[] };
 
@@ -249,7 +248,8 @@ const intents: Intent[] = [
       { type: "text", text: `Here's ${firstName}'s career — 12+ years from after-sales at General Motors to founding a D2C brand, running an ₹80Cr+ monthly P&L, an MBA at IIM Ahmedabad, and now leading AI transformation at M3M.` },
       { type: "experience" },
       { type: "education" },
-      { type: "resume" },
+      { type: "text", text: "If any of this is relevant to what you're building, the quickest next step is a call." },
+      { type: "contact" },
       { type: "chips", items: suggestions.about },
     ],
   },
@@ -332,7 +332,12 @@ const intents: Intent[] = [
     id: "resume",
     priority: 3,
     keywords: ["!download resume", "!download cv", "!download his resume", "!download your resume", "!pdf", "!resume download", "!download", "!send resume", "!copy of your resume", "!copy of his resume", "!latest resume"],
-    respond: () => [{ type: "resume" }, { type: "chips", items: ["Walk me through his career", "How can I reach you?"] }],
+    respond: () => [
+      { type: "text", text: `There's no PDF to download — this site *is* ${firstName}'s CV, kept current. Everything a resume would tell you is here: career, projects with numbers, education. And unlike a PDF, you can ask it questions — or just talk to him.` },
+      { type: "experience" },
+      { type: "contact" },
+      { type: "chips", items: ["Walk me through his career", "How can you help my company?", "How do I book a call?"] },
+    ],
   },
   {
     id: "thanks",

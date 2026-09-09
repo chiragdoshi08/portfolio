@@ -85,7 +85,7 @@ export default function Composer() {
           </button>
         </form>
         <p className="pointer-events-auto mt-1.5 text-center text-[11px] text-muted">
-          Answers come from {profile.firstName}'s CV and project notes · press <kbd className="rounded border border-line px-1">/</kbd> to type
+          Answers come from {profile.firstName}'s work and project notes · press <kbd className="rounded border border-line px-1">/</kbd> to type
         </p>
       </div>
     </div>

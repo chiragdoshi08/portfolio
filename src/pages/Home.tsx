@@ -14,6 +14,8 @@ export default function Home() {
         { type: "bio" },
         { type: "text", text: `This site works like a conversation — ask me anything about ${profile.firstName}'s work, or start with one of these:` },
         { type: "chips", items: suggestions.home },
+        { type: "text", text: "Or browse a section:" },
+        { type: "chips", items: suggestions.sections },
       ]),
     ]);
   }, [seed]);

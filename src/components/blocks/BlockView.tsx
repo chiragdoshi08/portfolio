@@ -8,7 +8,6 @@ import SkillsCloud from "./SkillsCloud";
 import EducationList from "./EducationList";
 import AchievementsList from "./AchievementsList";
 import ContactCard from "./ContactCard";
-import ResumeCard from "./ResumeCard";
 import OffersGrid from "./OffersGrid";
 import SuggestionChips from "./SuggestionChips";
 
@@ -38,8 +37,6 @@ export default function BlockView({ block, threadKey }: { block: Block; threadKe
       return <AchievementsList />;
     case "contact":
       return <ContactCard />;
-    case "resume":
-      return <ResumeCard />;
     case "offers":
       return <OffersGrid ids={block.ids} />;
     case "chips":

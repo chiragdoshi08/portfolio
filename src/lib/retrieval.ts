@@ -70,7 +70,7 @@ export function buildChunks(): Chunk[] {
   chunks.push({
     id: "contact",
     title: "Contact",
-    text: `Email ${profile.email}. LinkedIn ${profile.linkedin}. Location ${profile.location}. Resume available for download at ${profile.resumeUrl}.${profile.showPhone ? ` Phone ${profile.phone}.` : ""}`,
+    text: `Email ${profile.email}. LinkedIn ${profile.linkedin}. Location ${profile.location}. There is no CV download; the site itself is the up-to-date profile, and the best next step is a call on Topmate.${profile.showPhone ? ` Phone ${profile.phone}.` : ""}`,
   });
   return chunks;
 }

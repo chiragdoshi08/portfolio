@@ -13,14 +13,13 @@ export const COMMANDS: Array<[string, string]> = [
   ["whoami", "who Chirag is, in a paragraph"],
   ["experience [company]", "career timeline, or one role"],
   ["projects [--tag ai|growth|ops|product]", "what he has led"],
-  ["open <slug>", "open a project window"],
+  ["open <window|slug>", "open a window (career, skills, contact…) or a project"],
   ["offers", "how he works with clients"],
   ["skills", "toolkit"],
   ["education", "IIM A, VNIT"],
   ["awards", "recognition"],
   ["contact", "email, LinkedIn, Topmate"],
   ["book", "book a call on Topmate"],
-  ["resume", "download the profile PDF"],
   ["theme", "toggle dark mode"],
   ["clear", "clear the screen"],
   ["<anything else>", "ask a question, e.g. where did he work in 2019"],
@@ -65,9 +64,6 @@ export function blocksToLines(blocks: Block[]): TermLine[] {
         break;
       case "contact":
         out.push({ kind: "link", text: `Topmate  ${profile.topmate}`, href: profile.topmate }, { kind: "link", text: `Email    ${profile.email}`, href: `mailto:${profile.email}` }, { kind: "link", text: `LinkedIn ${profile.linkedin}`, href: profile.linkedin }, { kind: "muted", text: `Location ${profile.location}` });
-        break;
-      case "resume":
-        out.push({ kind: "link", text: `Download ${profile.name} — profile (PDF)`, href: profile.resumeUrl });
         break;
       case "chips":
         out.push({ kind: "muted", text: `try: ${b.items.map((i) => `"${i}"`).join("  ")}` });
@@ -114,7 +110,7 @@ export async function runCommand(raw: string, ctx: TermContext): Promise<TermLin
       return blocksToLines([{ type: "projects", slugs }]);
     }
     case "open": {
-      if (["readme", "career", "projects", "terminal", "book", "photo"].includes(arg)) {
+      if (["readme", "career", "projects", "terminal", "book", "skills", "credentials", "contact", "photo"].includes(arg)) {
         ctx.openWindow(arg);
         return [{ kind: "muted", text: `opened ${arg}` }];
       }
@@ -123,7 +119,7 @@ export async function runCommand(raw: string, ctx: TermContext): Promise<TermLin
         ctx.navigate(`/project/${p.slug}`);
         return [{ kind: "muted", text: `opening ${p.title}…` }];
       }
-      return [{ kind: "out", text: `open: nothing called "${arg}". Try: open readme | career | projects | book | photo, or a project slug.` }];
+      return [{ kind: "out", text: `open: nothing called "${arg}". Try: open readme | career | projects | book | skills | credentials | contact | photo, or a project slug.` }];
     }
     case "offers":
     case "services":
@@ -143,7 +139,10 @@ export async function runCommand(raw: string, ctx: TermContext): Promise<TermLin
       return [{ kind: "link", text: `opening Topmate → ${profile.topmate}`, href: profile.topmate }];
     case "resume":
     case "cv":
-      return blocksToLines([{ type: "resume" }]);
+      return [
+        { kind: "out", text: `No PDF here — this site is ${profile.firstName}'s CV, kept current. Try: experience · projects · offers · book` },
+        ...blocksToLines([{ type: "contact" }]),
+      ];
     case "sudo":
       return [{ kind: "out", text: "Nice try. Chirag is the only root here." }];
     default: {

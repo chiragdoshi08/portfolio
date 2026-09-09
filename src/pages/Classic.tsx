@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import { Link } from "react-router-dom";
 import { motion, useReducedMotion } from "framer-motion";
-import { ArrowRight, CalendarDays, Download, Mail, MessageSquare } from "lucide-react";
+import { ArrowRight, CalendarDays, Mail, MessageSquare } from "lucide-react";
 import { achievements, education, glance, profile, projects, suggestions } from "../content/profile";
 import OffersGrid from "../components/blocks/OffersGrid";
 import ProjectGrid from "../components/blocks/ProjectGrid";
@@ -9,7 +9,6 @@ import ExperienceTimeline from "../components/blocks/ExperienceTimeline";
 import SkillsCloud from "../components/blocks/SkillsCloud";
 import { LinkedInIcon } from "../components/icons";
 
-const featured = projects.filter((p) => p.featured).map((p) => p.slug);
 
 function Section({ id, eyebrow, title, children, aside }: { id: string; eyebrow: string; title: string; children: ReactNode; aside?: ReactNode }) {
   return (
@@ -101,13 +100,9 @@ export default function Classic() {
         id="work"
         eyebrow="Selected work"
         title="The proof behind the offers"
-        aside={
-          <Link to="/projects" className="inline-flex items-center gap-1 text-sm font-medium text-accent hover:underline">
-            All {projects.length} projects <ArrowRight size={14} aria-hidden="true" />
-          </Link>
-        }
+        aside={<p className="max-w-sm text-sm text-muted">All {projects.length} projects, with the numbers. Click any card for problem, approach and outcome.</p>}
       >
-        <ProjectGrid slugs={featured} />
+        <ProjectGrid />
       </Section>
 
       <Section id="career" eyebrow="Career" title="Twelve years, six chapters" aside={<p className="max-w-sm text-sm text-muted">From after-sales at General Motors to leading AI transformation. Tap a role to expand it.</p>}>
@@ -171,9 +166,6 @@ export default function Classic() {
             </a>
             <a href={`mailto:${profile.email}`} className="inline-flex h-11 items-center gap-2 rounded-xl border border-line bg-surface px-5 text-sm font-medium hover:bg-surface-2">
               <Mail size={16} aria-hidden="true" /> Email
-            </a>
-            <a href={profile.resumeUrl} download className="inline-flex h-11 items-center gap-2 rounded-xl border border-line bg-surface px-5 text-sm font-medium hover:bg-surface-2">
-              <Download size={16} aria-hidden="true" /> Profile (PDF)
             </a>
           </div>
         </div>

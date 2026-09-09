@@ -6,7 +6,7 @@ import { LinkedInIcon } from "./icons";
 const nav = [
   { to: "/chat", label: "Home", icon: Home },
   { to: "/projects", label: "Projects", icon: FolderKanban },
-  { to: "/about", label: "About & resume", icon: FileText },
+  { to: "/about", label: "About & career", icon: FileText },
 ];
 
 const social = [

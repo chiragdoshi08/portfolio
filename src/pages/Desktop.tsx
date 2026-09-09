@@ -1,15 +1,19 @@
 import { useCallback, useEffect, useMemo, useRef, useState, type KeyboardEvent, type ReactNode } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion, useReducedMotion } from "framer-motion";
-import { FileText, Briefcase, FolderKanban, Terminal as TerminalIcon, CalendarDays, Image as ImageIcon, X, Minus, CornerDownLeft } from "lucide-react";
+import { FileText, Briefcase, FolderKanban, Terminal as TerminalIcon, CalendarDays, Image as ImageIcon, Sparkles, GraduationCap, Mail, X, Minus, CornerDownLeft } from "lucide-react";
 import { glance, offers, profile, projects } from "../content/profile";
 import ExperienceTimeline from "../components/blocks/ExperienceTimeline";
 import ProjectGrid from "../components/blocks/ProjectGrid";
 import OffersGrid from "../components/blocks/OffersGrid";
+import SkillsCloud from "../components/blocks/SkillsCloud";
+import EducationList from "../components/blocks/EducationList";
+import AchievementsList from "../components/blocks/AchievementsList";
+import ContactCard from "../components/blocks/ContactCard";
 import { useTheme } from "../store/theme";
 import { COMMANDS, runCommand, type TermLine } from "../lib/terminal";
 
-type WinId = "readme" | "career" | "projects" | "terminal" | "book" | "photo";
+type WinId = "readme" | "career" | "projects" | "terminal" | "book" | "skills" | "credentials" | "contact" | "photo";
 
 type WinDef = { id: WinId; title: string; icon: typeof FileText; x: number; y: number; w: number; defaultOpen: boolean };
 
@@ -20,6 +24,9 @@ const WINDOWS: WinDef[] = [
   { id: "terminal", title: `${profile.firstName.toLowerCase()}@portfolio: ~`, icon: TerminalIcon, x: 700, y: 24, w: 520, defaultOpen: true },
   { id: "career", title: "career.log", icon: Briefcase, x: 60, y: 200, w: 560, defaultOpen: false },
   { id: "book", title: "book-a-call — how I can help", icon: CalendarDays, x: 140, y: 100, w: 640, defaultOpen: false },
+  { id: "skills", title: "skills.json", icon: Sparkles, x: 220, y: 140, w: 560, defaultOpen: false },
+  { id: "credentials", title: "education & recognition", icon: GraduationCap, x: 300, y: 160, w: 520, defaultOpen: false },
+  { id: "contact", title: "contact — let's talk", icon: Mail, x: 380, y: 200, w: 520, defaultOpen: false },
   { id: "photo", title: "IMG_2026.jpg", icon: ImageIcon, x: 760, y: 120, w: 340, defaultOpen: false },
 ];
 
@@ -47,10 +54,8 @@ export default function Desktop() {
       terminal: <Terminal openWindow={(id) => focus(id as WinId)} toggleTheme={toggle} navigate={navigate} />,
       projects: (
         <div className="p-3">
-          <ProjectGrid slugs={projects.filter((p) => p.featured).map((p) => p.slug)} compact />
-          <Link to="/projects" className="mt-3 inline-block text-sm text-accent hover:underline">
-            All {projects.length} projects →
-          </Link>
+          <p className="mb-3 text-sm text-muted">All {projects.length} projects — click any card for the full story.</p>
+          <ProjectGrid compact />
         </div>
       ),
       career: (
@@ -64,6 +69,22 @@ export default function Desktop() {
           <OffersGrid columns={2} />
         </div>
       ),
+      skills: (
+        <div className="p-3">
+          <SkillsCloud />
+        </div>
+      ),
+      credentials: (
+        <div className="space-y-3 p-3">
+          <EducationList />
+          <AchievementsList />
+        </div>
+      ),
+      contact: (
+        <div className="p-3">
+          <ContactCard />
+        </div>
+      ),
       photo: (
         <figure className="p-2">
           <img src={profile.aboutPhoto} alt={`${profile.name} outdoors`} className="aspect-[3/4] w-full rounded-xl object-cover object-top" width={900} height={1200} loading="lazy" />
@@ -75,7 +96,7 @@ export default function Desktop() {
   );
 
   return (
-    <div className="desktop-bg relative min-h-[calc(100dvh-3.5rem)] overflow-hidden">
+    <div className="desktop-bg relative min-h-[calc(100dvh-4rem)] overflow-hidden">
       <h1 className="sr-only">
         {profile.name} — desktop view
       </h1>
@@ -91,7 +112,7 @@ export default function Desktop() {
         </div>
       ) : (
         // Desktop: the area stops 6rem above the viewport bottom, leaving the dock its own lane.
-        <div ref={areaRef} className="relative h-[calc(100dvh-3.5rem-6rem)] overflow-hidden">
+        <div ref={areaRef} className="relative h-[calc(100dvh-4rem-6rem)] overflow-hidden">
           {WINDOWS.filter((w) => open.includes(w.id)).map((w) => (
             <motion.div
               key={w.id}
@@ -110,7 +131,7 @@ export default function Desktop() {
                 width: w.w,
                 zIndex: 10 + open.indexOf(w.id),
                 // Never taller than the space below the window's top edge — content scrolls inside instead.
-                maxHeight: `calc(100dvh - 3.5rem - 6rem - ${w.y}px)`,
+                maxHeight: `calc(100dvh - 4rem - 6rem - ${w.y}px)`,
               }}
               className="flex max-w-[calc(100vw-2rem)] flex-col"
             >
@@ -124,7 +145,7 @@ export default function Desktop() {
 
       {/* Dock */}
       <nav aria-label="Windows" className="fixed inset-x-0 bottom-4 z-40 flex justify-center px-3">
-        <ul className="flex items-center gap-1 rounded-2xl border border-line bg-surface/90 p-1.5 shadow-card backdrop-blur">
+        <ul className="flex max-w-full items-center gap-0.5 overflow-x-auto rounded-2xl border border-line bg-surface/90 p-1.5 shadow-card backdrop-blur sm:gap-1">
           {WINDOWS.map((w) => {
             const Icon = w.icon;
             const isOpen = open.includes(w.id);
@@ -136,7 +157,7 @@ export default function Desktop() {
                   aria-label={`${isOpen ? "Focus or hide" : "Open"} ${w.title}`}
                   aria-pressed={isOpen}
                   title={w.title}
-                  className={`flex h-11 w-11 items-center justify-center rounded-xl transition-colors ${isOpen ? "bg-surface-2 text-fg" : "text-fg/70 hover:bg-surface-2"}`}
+                  className={`flex h-10 w-10 items-center justify-center rounded-xl transition-colors sm:h-11 sm:w-11 ${isOpen ? "bg-surface-2 text-fg" : "text-fg/70 hover:bg-surface-2"}`}
                 >
                   <Icon size={20} aria-hidden="true" />
                 </button>
@@ -144,8 +165,8 @@ export default function Desktop() {
               </li>
             );
           })}
-          <li className="mx-1 h-6 w-px bg-line" role="separator" />
-          <li>
+          <li className="mx-1 hidden h-6 w-px bg-line sm:block" role="separator" />
+          <li className="hidden sm:block">
             <a href={profile.topmate} target="_blank" rel="noreferrer noopener" className="flex h-11 items-center gap-2 rounded-xl bg-accent px-3 text-sm font-medium text-accent-fg hover:opacity-90">
               <CalendarDays size={16} aria-hidden="true" /> <span className="hidden sm:inline">Book a call</span>
             </a>
@@ -201,8 +222,8 @@ function Readme({ onOpen }: { onOpen: (id: WinId) => void }) {
           See the {offers.length} offers
         </button>
       </div>
-      <dl className="mt-5 grid grid-cols-3 gap-3 border-t border-line pt-4">
-        {glance.slice(0, 3).map((g) => (
+      <dl className="mt-5 flex flex-wrap gap-x-6 gap-y-3 border-t border-line pt-4">
+        {glance.map((g) => (
           <div key={g.label}>
             <dd className="font-display text-xl leading-tight text-accent">{g.value}</dd>
             <dt className="mt-0.5 text-[11px] leading-4 text-muted">{g.label}</dt>

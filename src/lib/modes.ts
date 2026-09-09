@@ -17,7 +17,7 @@ export const MODES: Array<{ id: Mode; label: string; path: string; blurb: string
     label: "Chat",
     path: "/chat",
     blurb: "Ask questions; get answers as cards.",
-    detail: "Type “where did he work in 2019” or “how can you help my company” and get answers from Chirag's CV.",
+    detail: "Type “where did he work in 2019” or “how can you help my company” and get answers drawn from Chirag's career and projects.",
   },
   {
     id: "desktop",

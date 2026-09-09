@@ -39,12 +39,12 @@ export default function TopBar() {
 
   return (
     <header className="sticky top-0 z-30 border-b border-line bg-bg/85 backdrop-blur supports-[backdrop-filter]:bg-bg/70">
-      <div className={`mx-auto flex h-14 w-full items-center justify-between gap-2 px-3 sm:px-5 ${mode === "chat" ? "max-w-3xl" : "max-w-6xl"}`}>
+      {/* Row 1: brand · (centred switcher on md+) · actions */}
+      <div className={`relative mx-auto flex h-16 w-full items-center justify-between gap-2 px-3 sm:px-5 ${mode === "chat" ? "max-w-5xl" : "max-w-6xl"}`}>
         <div className="flex min-w-0 items-center gap-2">
-          {/* Brand — shown wherever the chat rail isn't */}
           <NavLink to="/" aria-label={`${profile.name} — home`} className={`flex items-center gap-2 ${mode === "chat" ? "md:hidden" : ""}`}>
             <img src={profile.avatar} alt="" width={32} height={32} className="h-8 w-8 rounded-full object-cover ring-1 ring-line" />
-            <span className="hidden text-sm font-semibold sm:inline">{profile.name}</span>
+            <span className="hidden text-sm font-semibold lg:inline">{profile.name}</span>
           </NavLink>
           {/* Chat-mode page nav on mobile (the rail is hidden below md) */}
           {mode === "chat" && (
@@ -65,8 +65,14 @@ export default function TopBar() {
           )}
         </div>
 
+        {/* Centred view switcher — the main navigation of the site */}
+        <div className="pointer-events-none absolute inset-x-0 hidden justify-center md:flex">
+          <div className="pointer-events-auto">
+            <ViewSwitcher />
+          </div>
+        </div>
+
         <div className="flex items-center gap-2">
-          <ViewSwitcher />
           <button type="button" onClick={toggle} className={`${iconBtn} hidden sm:inline-flex`} aria-label={dark ? "Switch to light mode" : "Switch to dark mode"} aria-pressed={dark}>
             {dark ? <Sun size={17} aria-hidden="true" /> : <Moon size={17} aria-hidden="true" />}
           </button>
@@ -84,6 +90,11 @@ export default function TopBar() {
             <span className="sm:hidden">Book</span>
           </a>
         </div>
+      </div>
+
+      {/* Row 2 (small screens only): the switcher gets the full width */}
+      <div className="mx-auto w-full max-w-6xl px-3 pb-2.5 md:hidden">
+        <ViewSwitcher full />
       </div>
     </header>
   );

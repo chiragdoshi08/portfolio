@@ -1,4 +1,4 @@
-import { Mail, MapPin, Download, Phone, CalendarDays } from "lucide-react";
+import { Mail, MapPin, Phone, CalendarDays } from "lucide-react";
 import { profile } from "../../content/profile";
 import { LinkedInIcon } from "../icons";
 
@@ -22,9 +22,6 @@ export default function ContactCard() {
             <Phone size={16} aria-hidden="true" /> {profile.phone}
           </a>
         )}
-        <a href={profile.resumeUrl} download className={btn}>
-          <Download size={16} aria-hidden="true" /> Resume (PDF)
-        </a>
       </div>
       <p className="mt-3 inline-flex items-center gap-1.5 text-sm text-muted">
         <MapPin size={14} aria-hidden="true" /> {profile.location} · usually replies within a day
