@@ -91,7 +91,7 @@ export const glance: Metric[] = [
   { value: "13+ yrs", label: "Building & scaling businesses" },
   { value: "₹80Cr+", label: "Monthly P&L owned" },
   { value: "400+", label: "People led" },
-  { value: "300+", label: "Users on Claude at M3M" },
+  { value: "300+", label: "GenAI users at M3M" },
   { value: "IIM A", label: "PGPX · top 5%" },
 ];
 
@@ -115,7 +115,7 @@ export const offers: Offer[] = [
     who: "CXOs and function heads who want AI in the operating model, not in a pilot.",
     what: ["Use-case mapping by impact and feasibility", "Platform and governance choices", "Capability-building so teams ship their own workflows"],
     format: "Start with a 45-min session; longer engagements by arrangement",
-    proof: "Rolled out Claude to 300+ users across 23 departments at M3M.",
+    proof: "Rolled out GenAI to 300+ users across 23 departments at M3M.",
     topmatePath: "2276465",
     topmateService: "Practical AI Strategy Session",
     aliases: ["genai adoption", "ai adoption", "ai roadmap", "ai strategy", "rollout", "leadership team"],
@@ -166,8 +166,8 @@ export const roles: Role[] = [
     summary:
       "Leading enterprise-wide Generative AI adoption for a large real-estate group, and building AI-powered decision tools for the business.",
     bullets: [
-      "Led enterprise-wide Generative AI adoption across M3M Group — mapped high-impact use cases and deployed Claude as the enterprise AI platform; scaled adoption to 300+ users across 23 departments and three group companies.",
-      "Designed and led GenAI capability-building: trained teams on Claude, prompt engineering and AI workflow development so functions can build their own AI-enabled workflows.",
+      "Led enterprise-wide Generative AI adoption across M3M Group — mapped high-impact use cases and deployed a single enterprise GenAI platform; scaled adoption to 300+ users across 23 departments and three group companies.",
+      "Designed and led GenAI capability-building: trained teams on GenAI tools, prompt engineering and AI workflow development so functions can build their own AI-enabled workflows.",
       "Built an AI-powered land-deal evaluation engine covering development mix (zoning), policy checks and multi-scenario IRR/NPV/cash-flow modelling — a 2-day manual process now runs in under 5 minutes and powers 50+ deal evaluations a month.",
       "Building an AI voice agent to re-engage 4,000 dormant leads, targeting a 10% site-visit conversion rate without added manual outreach.",
     ],
@@ -260,7 +260,7 @@ export const projects: Project[] = [
   {
     slug: "enterprise-genai-m3m",
     title: "Enterprise GenAI adoption at M3M",
-    tagline: "Deploying Claude as the enterprise AI platform across 23 departments",
+    tagline: "Deploying GenAI as the enterprise platform across 23 departments",
     company: "M3M Group",
     period: "2026 – Present",
     category: "AI",
@@ -271,13 +271,13 @@ export const projects: Project[] = [
       { value: "3", label: "Group companies" },
     ],
     summary:
-      "Led enterprise-wide Generative AI adoption for a large real-estate group: mapped high-impact use cases, deployed Claude as the enterprise platform, and trained functions to build their own AI workflows.",
+      "Led enterprise-wide Generative AI adoption for a large real-estate group: mapped high-impact use cases, deployed a single enterprise GenAI platform, and trained functions to build their own AI workflows.",
     problem:
       "GenAI interest was high but scattered — pockets of individual experimentation, no shared platform, no governance and no repeatable way to turn a use case into a working workflow.",
     approach: [
       "Mapped the use-case landscape function by function and prioritised by impact and feasibility.",
-      "Deployed Claude as the single enterprise AI platform across three group companies.",
-      "Designed a capability-building programme: hands-on training on Claude, prompt engineering and AI workflow development so teams could ship their own workflows without a central bottleneck.",
+      "Deployed one enterprise GenAI platform across three group companies.",
+      "Designed a capability-building programme: hands-on training on GenAI tools, prompt engineering and AI workflow development so teams could ship their own workflows without a central bottleneck.",
     ],
     outcome: [
       "Adoption scaled to 300+ users across 23 departments.",
@@ -615,7 +615,7 @@ export const skills = {
     "Third-party integrations",
     "Analytics dashboards",
   ],
-  tools: ["Claude", "Excel / financial models", "SQL", "Leadsquared", "ClickUp", "PAZO", "Notion"],
+  tools: ["GenAI platforms", "Excel / financial models", "SQL", "Leadsquared", "ClickUp", "PAZO", "Notion"],
 };
 
 export const education = [

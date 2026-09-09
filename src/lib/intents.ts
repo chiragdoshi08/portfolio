@@ -237,7 +237,7 @@ const intents: Intent[] = [
     respond: () => [
       { type: "text", text: `AI runs through most of ${firstName}'s recent work — from AI-backed prescription digitisation at Medtrail to leading enterprise GenAI adoption at M3M. Here are the AI projects:` },
       { type: "projects", slugs: projects.filter((p) => p.category === "AI").map((p) => p.slug) },
-      { type: "chips", items: ["How did he roll out Claude at M3M?", "Tell me about the land-deal engine", "What are his key skills?"] },
+      { type: "chips", items: ["How did he roll out GenAI at M3M?", "Tell me about the land-deal engine", "What are his key skills?"] },
     ],
   },
   {
