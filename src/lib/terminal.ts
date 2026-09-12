@@ -98,8 +98,8 @@ export async function runCommand(raw: string, ctx: TermContext): Promise<TermLin
     case "experience":
     case "career":
     case "exp": {
-      const role = arg ? roles.find((r) => r.company.toLowerCase().includes(arg) || r.aliases.some((a) => arg.includes(a))) : undefined;
-      return blocksToLines([{ type: "experience", roleIds: role ? [role.id] : undefined }]);
+      const matched = arg ? roles.filter((r) => r.company.toLowerCase().includes(arg) || r.aliases.some((a) => arg.includes(a))) : [];
+      return blocksToLines([{ type: "experience", roleIds: matched.length ? matched.map((r) => r.id) : undefined }]);
     }
     case "projects":
     case "ls": {

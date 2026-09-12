@@ -74,17 +74,31 @@ function humanDuration(months: number) {
   return parts.join(" and ") || "under a month";
 }
 
-/** Find a role mentioned anywhere in the question (by company or alias). */
-function roleInQuestion(q: string): Role | undefined {
-  const hits = roles
-    .map((r) => {
-      const names = [r.company.toLowerCase(), r.company.split(" ")[0].toLowerCase(), ...r.aliases.filter((a) => a.length > 3)];
-      const hit = names.find((n) => new RegExp(`\\b${n.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\b`).test(q));
-      return hit ? { r, len: hit.length } : null;
-    })
-    .filter((x): x is { r: Role; len: number } => Boolean(x))
-    .sort((a, b) => b.len - a.len); // prefer the most specific mention
-  return hits[0]?.r;
+const esc = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+const hasWord = (q: string, n: string) => new RegExp(`\\b${esc(n)}\\b`).test(q);
+
+/** All roles at a company (one company can hold several roles, e.g. PharmEasy). Newest first. */
+export function rolesAt(company: string): Role[] {
+  return roles.filter((r) => r.company === company);
+}
+
+/**
+ * Find the role(s) a question refers to. A specific alias ("aknamed") returns that
+ * one role; a bare company name ("pharmeasy") returns every role at that company.
+ */
+function rolesInQuestion(q: string): Role[] {
+  let best: { rs: Role[]; len: number } | null = null;
+  for (const r of roles) {
+    const alias = r.aliases.filter((a) => a.length > 3).find((a) => hasWord(q, a));
+    if (alias && (!best || alias.length > best.len)) best = { rs: [r], len: alias.length };
+  }
+  if (best) return best.rs;
+  for (const r of roles) {
+    const names = [r.company.toLowerCase(), r.company.split(" ")[0].toLowerCase()];
+    const hit = names.find((n) => hasWord(q, n));
+    if (hit && (!best || hit.length > best.len)) best = { rs: rolesAt(r.company), len: hit.length };
+  }
+  return best?.rs ?? [];
 }
 
 const followUps = (extra: string[] = []): Block => ({ type: "chips", items: [...extra, "Walk me through your career", "How can I reach you?"].slice(0, 4) });
@@ -128,19 +142,21 @@ function structured(q: string): MatchResult {
     };
   }
 
-  const mentioned = roleInQuestion(q);
+  const group = rolesInQuestion(q);
+  const mentioned = group[0]; // newest role in the group
+  const earliest = group[group.length - 1];
 
   // Duration: "how long at X", "how many years at X", "tenure"
   if (/\b(how long|how many (years|months)|tenure|duration)\b/.test(q)) {
     if (mentioned) {
-      const { start, end } = roleSpan(mentioned);
-      const months = monthsBetween(start, end);
+      const months = monthsBetween(roleSpan(earliest).start, roleSpan(mentioned).end);
+      const rolesNote = group.length > 1 ? ` across ${group.length} roles` : "";
       return {
         intentId: `duration:${mentioned.id}`,
         confidence: 5,
         blocks: [
-          { type: "text", text: `${firstName} was at ${mentioned.company} for ${humanDuration(months)} — ${mentioned.start} to ${mentioned.end}.` },
-          { type: "experience", roleIds: [mentioned.id] },
+          { type: "text", text: `${firstName} was at ${mentioned.company} for ${humanDuration(months)}${rolesNote} — ${earliest.start} to ${mentioned.end}.` },
+          { type: "experience", roleIds: group.map((r) => r.id) },
           followUps(),
         ],
       };
@@ -159,8 +175,9 @@ function structured(q: string): MatchResult {
   // Ordering: "before X", "after X", "prior to X", "next after X"
   const rel = q.match(/\b(before|prior to|after|following|next after)\b/);
   if (rel && mentioned) {
-    const idx = roles.findIndex((r) => r.id === mentioned.id); // roles are newest-first
     const before = /before|prior/.test(rel[1]);
+    // roles are newest-first: "before" steps past the group's earliest role, "after" past its newest
+    const idx = roles.findIndex((r) => r.id === (before ? earliest.id : mentioned.id));
     const target = before ? roles[idx + 1] : roles[idx - 1];
     if (!target) {
       return {
@@ -169,12 +186,14 @@ function structured(q: string): MatchResult {
         blocks: [{ type: "text", text: before ? `${mentioned.company} was ${firstName}'s first job after his B.Tech at VNIT Nagpur.` : `${mentioned.company} is ${firstName}'s current role.` }, { type: "experience", roleIds: [mentioned.id] }, followUps()],
       };
     }
+    const targetGroup = rolesAt(target.company);
+    const shown = targetGroup.length > 1 ? targetGroup : [target];
     return {
       intentId: `order:${mentioned.id}:${before ? "before" : "after"}`,
       confidence: 5,
       blocks: [
-        { type: "text", text: `${before ? "Before" : "After"} ${mentioned.company}, ${firstName} was at ${target.company} as ${target.title} (${target.start} – ${target.end}).` },
-        { type: "experience", roleIds: [target.id] },
+        { type: "text", text: `${before ? "Before" : "After"} ${mentioned.company}, ${firstName} was at ${target.company}${shown.length > 1 ? ` (${shown.length} roles, ${shown[shown.length - 1].start} – ${shown[0].end})` : ` as ${target.title} (${target.start} – ${target.end})`}.` },
+        { type: "experience", roleIds: shown.map((r) => r.id) },
         followUps([`How long was he at ${target.company}?`]),
       ],
     };
@@ -194,7 +213,7 @@ function structured(q: string): MatchResult {
     return { intentId: "current:where", confidence: 4, blocks: [{ type: "text", text: `${firstName} works at ${roles[0].company} in ${roles[0].location} as ${roles[0].title}.` }, { type: "experience", roleIds: ["m3m"] }, followUps(["Where did he work before?"])] };
   }
   if (/\b(where|who)\b.*\b(work|working|employed)\b.*\b(before|previously|earlier|past)\b/.test(q) || /\b(previous|past|earlier) (employers|companies|roles|jobs)\b/.test(q)) {
-    return { intentId: "experience:past", confidence: 4, blocks: [{ type: "text", text: `Before M3M, ${firstName} spent four years at PharmEasy, and earlier worked at Medtrail, his own startup TOIKIT, OYO Rooms and General Motors.` }, { type: "experience", roleIds: roles.slice(1).map((r) => r.id) }, followUps()] };
+    return { intentId: "experience:past", confidence: 4, blocks: [{ type: "text", text: `Before M3M, ${firstName} spent four years at PharmEasy across three roles, and earlier worked at Medtrail, his own startup TOIKIT, OYO Rooms and General Motors.` }, { type: "experience", roleIds: roles.filter((r) => r.id !== "m3m").map((r) => r.id) }, followUps()] };
   }
 
   return null;
@@ -351,20 +370,29 @@ const intents: Intent[] = [
 ];
 
 // Company- and project-specific intents are generated from the content so the
-// data file stays the single place to edit. Company names and project aliases are strong.
-for (const r of roles) {
+// data file stays the single place to edit. One intent per company (all its roles).
+const companies = [...new Set(roles.map((r) => r.company))];
+for (const company of companies) {
+  const group = rolesAt(company);
+  const newest = group[0];
+  const oldest = group[group.length - 1];
+  const key = company.split(" ")[0].toLowerCase();
   intents.push({
-    id: `role:${r.id}`,
+    id: `role:${key}`,
     priority: 4,
-    keywords: [`!${r.company.toLowerCase()}`, `!${r.company.split(" ")[0].toLowerCase()}`, ...r.aliases.map((a) => (a.length > 4 ? `!${a}` : a))],
-    respond: () => {
-      const related = projects.filter((p) => p.company.toLowerCase().includes(r.company.split(" ")[0].toLowerCase())).map((p) => p.slug);
-      const blocks: Block[] = [
-        { type: "text", text: `${r.company} — ${r.title}, ${r.start} to ${r.end}. ${r.summary}` },
-        { type: "experience", roleIds: [r.id] },
-      ];
+    keywords: [`!${company.toLowerCase()}`, `!${key}`, ...group.flatMap((r) => r.aliases.map((a) => (a.length > 4 ? `!${a}` : a)))],
+    respond: (q) => {
+      // A specific alias narrows to one role; the bare company name shows them all.
+      const specific = group.find((r) => r.aliases.some((a) => a.length > 3 && hasWord(q, a)));
+      const shown = specific && group.length > 1 ? [specific] : group;
+      const related = projects.filter((p) => p.company.toLowerCase().includes(key)).map((p) => p.slug);
+      const intro =
+        shown.length > 1
+          ? `${company} — ${shown.length} roles, ${oldest.start} to ${newest.end}: ${[...shown].reverse().map((r) => r.title.split(" — ")[0]).join(", then ")}.`
+          : `${company} — ${shown[0].title}, ${shown[0].start} to ${shown[0].end}. ${shown[0].summary}`;
+      const blocks: Block[] = [{ type: "text", text: intro }, { type: "experience", roleIds: shown.map((r) => r.id) }];
       if (related.length) blocks.push({ type: "text", text: "Related projects:" }, { type: "projects", slugs: related, compact: true });
-      blocks.push({ type: "chips", items: [`How long was he at ${r.company}?`, `What did he do before ${r.company}?`, "How can I reach you?"] });
+      blocks.push({ type: "chips", items: [`How long was he at ${company}?`, `What did he do before ${company}?`, "How can I reach you?"] });
       return blocks;
     },
   });
@@ -384,8 +412,6 @@ for (const p of projects) {
 }
 
 const fold = (w: string) => (w.endsWith("s") && w.length > 4 ? w.slice(0, -1) : w);
-const esc = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-
 function scoreIntent(intent: Intent, q: string, qTokens: Set<string>): { score: number; strong: boolean } {
   let score = 0;
   let strong = false;
