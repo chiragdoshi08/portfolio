@@ -41,16 +41,24 @@ export default function Classic() {
       {/* Hero */}
       <section className="grid items-center gap-10 py-14 sm:py-20 lg:grid-cols-[1.25fr_1fr]">
         <div>
-          <motion.p {...fade(0)} className="text-xs font-semibold uppercase tracking-wider text-accent">
-            {profile.headline}
-          </motion.p>
+          <motion.ul {...fade(0)} aria-label="In four words" className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs font-semibold uppercase tracking-wider text-accent">
+            {profile.fourWords.map((w, i) => (
+              <li key={w} className="flex items-center gap-3">
+                {i > 0 && <span aria-hidden="true" className="h-1 w-1 rounded-full bg-accent/50" />}
+                {w}
+              </li>
+            ))}
+          </motion.ul>
           <motion.h1 {...fade(0.05)} className="font-display mt-4 text-[2.4rem] leading-[1.05] sm:text-6xl">
-            {profile.offerHeadline}
+            {profile.identity}
           </motion.h1>
           <motion.p {...fade(0.1)} className="mt-6 max-w-2xl text-lg leading-8 text-fg/85">
             {profile.offerSub}
           </motion.p>
           <motion.div {...fade(0.15)} className="mt-8 flex flex-wrap items-center gap-3">
+            <Link to="/chat" className="inline-flex h-11 items-center gap-2 rounded-xl bg-fg px-5 text-sm font-semibold text-bg transition-opacity hover:opacity-90">
+              <MessageSquare size={16} aria-hidden="true" /> Ask me anything
+            </Link>
             <a
               href={profile.topmate}
               target="_blank"
@@ -59,12 +67,9 @@ export default function Classic() {
             >
               <CalendarDays size={16} aria-hidden="true" /> Book a call
             </a>
-            <a href="#offers" className="inline-flex h-11 items-center gap-2 rounded-xl border border-line bg-surface px-5 text-sm font-medium hover:bg-surface-2">
+            <a href="#offers" className="inline-flex h-11 items-center gap-1.5 px-2 text-sm font-medium text-muted hover:text-fg">
               How I can help <ArrowRight size={15} aria-hidden="true" />
             </a>
-            <Link to="/chat" className="inline-flex h-11 items-center gap-2 px-2 text-sm font-medium text-muted hover:text-fg">
-              <MessageSquare size={15} aria-hidden="true" /> or just ask
-            </Link>
           </motion.div>
         </div>
         <motion.figure {...fade(0.1)} className="relative mx-auto w-full max-w-sm lg:max-w-none">

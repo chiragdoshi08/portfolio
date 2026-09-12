@@ -52,7 +52,11 @@ export const profile = {
     "0→1 business launches",
     "Operating-model design",
   ],
-  // Offer-led headline used by the Classic and Desktop views (the chat keeps the friendlier intro).
+  // Identity line for the Classic hero: a point of view, not a job title (Warikoo's "awareness is everything").
+  identity: "Thirteen years running businesses. Now teaching them to think.",
+  // Four words that describe the person, shown as a strip under the identity line.
+  fourWords: ["Operator", "Product", "AI", "Advisor"],
+  // Offer-led headline used by the Desktop readme (the chat keeps the friendlier intro).
   offerHeadline: "I help businesses put AI to work — from the adoption roadmap to the deployed workflow.",
   offerSub:
     "Operator first, advisor second: I've owned an ₹80Cr+ monthly P&L, led 400+ people, launched businesses from zero — and now lead enterprise GenAI adoption at M3M.",
@@ -72,6 +76,18 @@ export const profile = {
   aboutPhoto: "/images/about.jpg",
   iimaPhoto: "/images/iima-books.jpg",
 };
+
+/**
+ * Lines Chirag keeps coming back to. Attribution is deliberately honest: the first is a
+ * film line he can't source, the second has no single author, the third is usually pinned
+ * on Drucker but the Drucker Institute says he never said it — and Deming called it a myth.
+ */
+export type Motto = { text: string; source: string };
+export const mottos: Motto[] = [
+  { text: "Never miss a train, even if you don't have a ticket.", source: "a line from a film, remembered better than the film" },
+  { text: "The answer to every fear is action.", source: "folk wisdom; Dale Carnegie said it longer" },
+  { text: "You can't manage what you can't measure.", source: "usually credited to Drucker — he never said it, and I use it anyway" },
+];
 
 /** The career as a ribbon of chapters — shown instead of a scoreboard of numbers. */
 export type Chapter = { year: string; name: string; note: string; roleId?: string };
