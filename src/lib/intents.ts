@@ -8,7 +8,7 @@
 //   2. Keyword intents — scored, with "!strong" terms (company names, topic
 //      words) required for longer questions so filler like "work" never wins.
 
-import { offers, profile, projects, roles, suggestions, type Role } from "../content/profile";
+import { offers, profile, projects, roles, suggestions, storyChapters, mottos, type Role } from "../content/profile";
 import { tokenize } from "./retrieval";
 
 export type Block =
@@ -223,6 +223,8 @@ function structured(q: string): MatchResult {
 // Stage 2: keyword intents
 // ---------------------------------------------------------------------------
 const intents: Intent[] = [
+  { id: "story", keywords: ["!my story", "!your story", "!his story", "!personal story", "!career chapters"], priority: 12, respond: () => storyChapters.map(c => ({ type: "text", text: `${c.title} (${c.years})\n\n${c.text}` })) },
+  { id: "mottos", keywords: ["!motto", "!mottos", "!philosophy", "!life principles"], priority: 12, respond: () => mottos.map(m => ({ type: "text", text: `“${m.text}” — ${m.source}` })) },
   {
     id: "greeting",
     priority: 0,

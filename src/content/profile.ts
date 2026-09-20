@@ -42,7 +42,7 @@ export const profile = {
   intro:
     "Hi, I'm Chirag. I build and scale businesses — and these days I spend most of my time bringing Generative AI into how they actually run.",
   summary:
-    "Strategy and operations leader with 13+ years building and scaling businesses across India — consumer technology, healthcare, retail and real estate. I've owned an ₹80Cr+ monthly P&L and led a 400+ member organisation, partnering with senior leadership to turn business priorities into expansion plans, operating models and cross-functional execution. I set up KPI dashboards, operating reviews and scalable processes across multi-city businesses, and now lead enterprise transformation and GenAI adoption across three M3M Group companies.",
+    "Strategy and operations leader with 13+ years building and scaling businesses across India — consumer technology, healthcare, retail and real estate. I've owned an ₹80Cr+ monthly P&L and led organisations of 600+ people, partnering with senior leadership to turn business priorities into expansion plans, operating models and cross-functional execution. I set up KPI dashboards, operating reviews and scalable processes across multi-city businesses, and now lead enterprise transformation and GenAI adoption across three M3M Group companies.",
   currently:
     "AI Transformation Lead in the Management Office at M3M India, leading enterprise-wide business transformation and GenAI adoption across three group companies. Completed the one-year MBA (PGPX) at IIM Ahmedabad in 2026, graduating in the top 5% of the batch.",
   focusAreas: [
@@ -53,13 +53,13 @@ export const profile = {
     "Operating-model design",
   ],
   // Identity line for the Classic hero: a point of view, not a job title (Warikoo's "awareness is everything").
-  identity: "Thirteen years running businesses. Now teaching them to think.",
+  identity: "I build businesses. Now I build with AI.",
   // Four words that describe the person, shown as a strip under the identity line.
   fourWords: ["Operator", "Product", "AI", "Advisor"],
   // Offer-led headline used by the Desktop readme (the chat keeps the friendlier intro).
   offerHeadline: "I help businesses put AI to work — from the adoption roadmap to the deployed workflow.",
   offerSub:
-    "Operator first, advisor second: I've owned an ₹80Cr+ monthly P&L, led 400+ people, launched businesses from zero — and now lead enterprise GenAI adoption at M3M.",
+    "Operator first, advisor second: I've owned an ₹80Cr+ monthly P&L, led teams of 600+, launched businesses from zero — and now lead enterprise GenAI adoption at M3M.",
   // How the chat answers "is he open to roles?" — an open door, not a sign in the window.
   openTo:
     "Chirag is at M3M and takes on select advisory work through Topmate. For anything beyond that, the fastest route is a short note on LinkedIn or email.",
@@ -106,7 +106,7 @@ export const journey: Chapter[] = [
 export const glance: Metric[] = [
   { value: "13+ yrs", label: "Building & scaling businesses" },
   { value: "₹80Cr+", label: "Monthly P&L owned" },
-  { value: "400+", label: "People led" },
+  { value: "600+", label: "People led" },
   { value: "300+", label: "GenAI users at M3M" },
   { value: "IIM A", label: "PGPX · top 5%" },
 ];
@@ -199,7 +199,7 @@ export const roles: Role[] = [
     summary:
       "Owned the ₹80Cr+ monthly Aknamed P&L and launched PharmEasy's quick-commerce business with Swiggy Instamart.",
     bullets: [
-      "Owned ₹80Cr+ monthly P&L for Aknamed, leading a 400+ member organisation across 21 warehouses and managing ₹76Cr in inventory.",
+      "Owned ₹80Cr+ monthly P&L for Aknamed, leading an organisation of 600+ people, restructured to approximately 430, across 21 warehouses and managing ₹76Cr in inventory.",
       "Launched Quick Commerce with Swiggy Instamart — financial model, annual operating plan, commercial structure and partner governance; scaled to ₹1.2Cr monthly GMV within four months.",
       "Opened 19 pharma dark stores across Bangalore, Delhi NCR, Mumbai and Chennai: store setup, regulatory compliance, medicine supply and daily operations, with launch playbooks covering hiring, training, service levels and KPIs.",
       "Ran leadership reviews and dashboards on growth, unit economics, service performance and execution risk; improved same-day delivery SLA from 76% to 92% and cut operating costs by 16%.",
@@ -219,7 +219,7 @@ export const roles: Role[] = [
       "Ran three businesses — offline retail, the Docon EMR and the health-partner network — aligning product, supply chain, finance and operations behind one set of reviews.",
     bullets: [
       "Aligned product, supply chain, finance and operations priorities across three businesses; established monthly reviews and dashboards for city performance, unit economics and expansion readiness.",
-      "Built a franchise-owned, company-operated retail chain across four cities, reaching CM2 profitability within eight months and ₹4Cr monthly GMV; standardised store setup, vendor coordination and audit processes.",
+      "Built a franchise-owned, company-operated retail chain across four cities, reaching CM2 profitability within eight months and ₹80 lakh combined monthly GMV; standardised store setup, vendor coordination and audit processes.",
       "Managed an 800+ health-partner network generating ₹4Cr+ monthly business; doubled revenue in four months and reached CM2 break-even through partner incentives and operating playbooks.",
       "Revived Docon EMR for 3,500+ monthly active doctors; tripled payment collections and reduced issue tickets by 66% within three months through performance dashboards and structured engagement.",
     ],
@@ -417,7 +417,7 @@ export const projects: Project[] = [
   {
     slug: "aknamed-pnl",
     title: "Owning an ₹80Cr+ monthly P&L at Aknamed",
-    tagline: "Hospital supply chain across 21 warehouses and a 400-person organisation",
+    tagline: "Hospital supply chain across 21 warehouses, with service and cost improvements",
     company: "PharmEasy (Aknamed)",
     period: "2024 – 2025",
     category: "Operations",
@@ -428,7 +428,7 @@ export const projects: Project[] = [
       { value: "₹76Cr", label: "Inventory managed" },
     ],
     summary:
-      "Ran end-to-end supply chain and warehouse operations for Aknamed, PharmEasy's business-to-hospital entity, with full P&L ownership and a 400+ member team.",
+      "Ran end-to-end supply chain and warehouse operations for Aknamed, PharmEasy's business-to-hospital entity, with full P&L ownership and an organisation of 600+ people, restructured to approximately 430.",
     problem:
       "A high-volume, low-margin B2H business where working-capital efficiency, stock visibility and SLA adherence across 21 warehouses decided whether growth was profitable.",
     approach: [
@@ -451,7 +451,7 @@ export const projects: Project[] = [
     metrics: [
       { value: "4", label: "Cities" },
       { value: "8 months", label: "To CM2 profitability" },
-      { value: "₹4Cr", label: "Monthly GMV" },
+      { value: "₹80L", label: "Combined monthly GMV" },
     ],
     summary:
       "Launched and scaled a franchise-owned, company-operated chain of physical medical stores for PharmEasy.",
@@ -465,7 +465,7 @@ export const projects: Project[] = [
     ],
     outcome: [
       "Reached CM2 profitability within eight months.",
-      "Monthly GMV scaled to ₹4Cr.",
+      "Combined monthly GMV scaled to ₹80 lakh; the separate Health Partner Network generated ₹4Cr+ monthly business.",
     ],
     aliases: ["foco", "franchise", "retail chain", "medical stores", "offline retail", "stores"],
   },
@@ -713,3 +713,22 @@ export const suggestions = {
   sections: ["How can you help my company?", "Walk me through your career", "Show me all your projects", "What are your key skills?", "Where did you study?", "Any awards?", "How can I reach you?"],
   afterProject: ["Show me another project", "What was your role there?", "How can I reach you?"],
 };
+
+/** Public narrative distilled from the profile documents; shared with search and terminal. */
+export const storyChapters = [
+  { years: "2009—2015", title: "An engineer, out in the field.", text: "I studied mechanical engineering at VNIT Nagpur, where our team won the fastest Formula car award at SUPRA SAE India. My first professional chapter was at General Motors: service operations, dealer networks and the everyday work of keeping customers moving." },
+  { years: "2015—2019", title: "From running a market to starting a brand.", text: "At OYO, I moved from Business Development Manager to Micro Market CEO and owned the CyberHub market P&L. Then came TOIKIT: a public-hygiene brand I founded, taking seven products through development, branding and distribution, including a launch on the Mumbai Rajdhani Express." },
+  { years: "2019—2025", title: "Healthcare, at operating scale.", text: "At Medtrail and PharmEasy, my work connected business ownership with the products behind it: clinic platforms, prescription digitisation, retail operations and hospital supply chains. I launched PharmEasyOne across 27 cities, led the quick-commerce launch with Swiggy Instamart and owned Aknamed’s ₹80Cr+ monthly P&L." },
+  { years: "2025—2026", title: "A year back in the classroom.", text: "I completed the full-time, one-year PGPX at IIM Ahmedabad, receiving the Academic Merit Award and Exit Scholarship for finishing in the top 5% of the batch. A new chapter in a career that has moved between engineering, entrepreneurship, operations and product." },
+  { years: "NOW", title: "Putting AI to work.", text: "Today, I lead AI transformation at M3M, working across three group companies. That includes helping teams adopt GenAI and building tools such as a land-deal evaluation engine. Alongside that work, I take on select advisory conversations and keep building small experiments of my own." },
+];
+
+projects.push({
+  slug: "conversational-portfolio", title: "This website, built to answer back", tagline: "One profile. A conversation, a reading experience and a working terminal.", company: "Personal project", period: "2026", category: "Side project", featured: true,
+  metrics: [{value:"3",label:"Ways to explore"},{value:"Local",label:"Profile search"},{value:"No sign-up",label:"Open to explore"}],
+  summary: "Designed and built an interactive personal website with AI coding tools. Visitors can read the work, ask about it or explore the same profile through a desktop and terminal.",
+  problem: "A conventional profile makes every visitor read the same sequence. A founder, a hiring leader and a curious peer often want very different details. The site needed to make those details easy to find while keeping running costs close to zero.",
+  approach: ["Kept roles, projects, services and contact information in a shared content model so the different interfaces draw on the same facts.","Built structured handlers for career dates, companies and common questions, with local keyword retrieval for questions outside the scripted set.","Connected project stories to the conversation and linked consulting offers to their corresponding Topmate sessions.","Made the reading experience work on phones, added keyboard navigation and supported reduced motion and light/dark themes."],
+  outcome: ["A working portfolio that can be explored through reading, conversation or terminal commands.","Scripted answers and local retrieval run in the browser without a model API charge. The optional server-side model fallback is disabled on GitHub Pages."],
+  aliases: ["this website","this site","portfolio","how was this built","chat engine","scripted answers","local retrieval"],
+});

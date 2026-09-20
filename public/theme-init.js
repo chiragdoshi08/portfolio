@@ -5,7 +5,7 @@
     var saved = forced || localStorage.getItem("theme");
     var dark = saved ? saved === "dark" : window.matchMedia("(prefers-color-scheme: dark)").matches;
     if (dark) document.documentElement.classList.add("dark");
-  } catch (e) {
+  } catch {
     /* storage unavailable — fall back to light */
   }
 })();

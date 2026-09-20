@@ -1,10 +1,10 @@
 // A tiny shell over the same content + intent engine that powers the chat.
 // Commands map to blocks; blocks are flattened to text lines for the terminal.
 
-import { achievements, education, offers, profile, projects, roles, skills } from "../content/profile";
+import { achievements, education, offers, profile, projects, roles, skills, storyChapters, mottos } from "../content/profile";
 import { answer } from "./chat";
 import type { Block } from "./intents";
-import { topmateUrl } from "../components/blocks/OffersGrid";
+import { topmateUrl } from "./offers";
 
 export type TermLine = { kind: "in" | "out" | "muted" | "link" | "title"; text: string; href?: string };
 
@@ -15,6 +15,7 @@ export const COMMANDS: Array<[string, string]> = [
   ["projects [--tag ai|growth|ops|product]", "what he has led"],
   ["open <window|slug>", "open a window (career, skills, contact…) or a project"],
   ["offers", "how he works with clients"],
+  ["story / mottos", "the person behind the work"],
   ["skills", "toolkit"],
   ["education", "IIM A, VNIT"],
   ["awards", "recognition"],
@@ -92,6 +93,10 @@ export async function runCommand(raw: string, ctx: TermContext): Promise<TermLin
     case "theme":
       ctx.toggleTheme();
       return [{ kind: "muted", text: "theme toggled" }];
+    case "story":
+      return storyChapters.flatMap(c => [{ kind: "title" as const, text: `${c.years} · ${c.title}` }, { kind: "out" as const, text: c.text }]);
+    case "mottos":
+      return mottos.map(m => ({ kind: "out", text: `${m.text} — ${m.source}` }));
     case "whoami":
     case "about":
       return blocksToLines([{ type: "bio" }]);

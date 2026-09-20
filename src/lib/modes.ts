@@ -7,8 +7,8 @@ export type View = Mode | "landing";
 export const MODES: Array<{ id: Mode; label: string; path: string; blurb: string; detail: string }> = [
   {
     id: "classic",
-    label: "Classic",
-    path: "/classic",
+    label: "Home",
+    path: "/",
     blurb: "A one-page profile you can scan in 30 seconds.",
     detail: "Offers, selected work, career and contact on a single scrolling page. Best if you're in a hurry.",
   },
@@ -28,7 +28,7 @@ export const MODES: Array<{ id: Mode; label: string; path: string; blurb: string
   },
 ];
 
-const CHAT_PATHS = ["/chat", "/projects", "/about"];
+const CHAT_PATHS = ["/chat"];
 
 /** GitHub Pages serves routes as folders, so direct loads arrive as "/chat/" — normalise that. */
 export function normalizePath(pathname: string): string {
@@ -37,9 +37,9 @@ export function normalizePath(pathname: string): string {
 
 export function modeForPath(rawPath: string): View {
   const pathname = normalizePath(rawPath);
-  if (pathname === "/") return "landing";
+  if (pathname === "/") return "classic";
   if (pathname === "/desktop") return "desktop";
-  if (CHAT_PATHS.includes(pathname) || pathname.startsWith("/project/")) return "chat";
+  if (CHAT_PATHS.includes(pathname)) return "chat";
   return "classic";
 }
 

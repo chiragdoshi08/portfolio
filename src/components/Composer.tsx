@@ -5,11 +5,9 @@ import { useChat, type ThreadKey } from "../store/chat";
 import { normalizePath } from "../lib/modes";
 import { profile } from "../content/profile";
 
-export function threadForPath(rawPath: string): ThreadKey | null {
+function threadForPath(rawPath: string): ThreadKey | null {
   const pathname = normalizePath(rawPath);
   if (pathname === "/chat") return "home";
-  if (pathname === "/projects") return "projects";
-  if (pathname === "/about") return "about";
   return null;
 }
 
@@ -47,7 +45,7 @@ export default function Composer() {
   }
 
   return (
-    <div className="pointer-events-none fixed inset-x-0 bottom-0 z-20 md:left-[4.25rem]">
+    <div className="pointer-events-none fixed inset-x-0 bottom-0 z-20">
       <div className="mx-auto w-full max-w-3xl px-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] sm:px-5">
         <form
           onSubmit={(e) => {

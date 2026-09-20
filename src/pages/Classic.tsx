@@ -1,183 +1,158 @@
-import type { ReactNode } from "react";
-import { Link } from "react-router-dom";
-import { motion, useReducedMotion } from "framer-motion";
-import { ArrowRight, CalendarDays, Mail, MessageSquare } from "lucide-react";
-import { achievements, education, profile, projects, suggestions } from "../content/profile";
-import JourneyStrip from "../components/JourneyStrip";
-import OffersGrid from "../components/blocks/OffersGrid";
-import ProjectGrid from "../components/blocks/ProjectGrid";
-import ExperienceTimeline from "../components/blocks/ExperienceTimeline";
-import SkillsCloud from "../components/blocks/SkillsCloud";
-import { LinkedInIcon } from "../components/icons";
-
-
-function Section({ id, eyebrow, title, children, aside }: { id: string; eyebrow: string; title: string; children: ReactNode; aside?: ReactNode }) {
-  return (
-    <section id={id} aria-labelledby={`${id}-title`} className="scroll-mt-20 border-t border-line py-14 sm:py-16">
-      <div className="mb-8 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-        <div>
-          <p className="text-xs font-semibold uppercase tracking-wider text-accent">{eyebrow}</p>
-          <h2 id={`${id}-title`} className="font-display mt-2 text-3xl leading-tight sm:text-4xl">
-            {title}
-          </h2>
-        </div>
-        {aside}
-      </div>
-      {children}
-    </section>
-  );
-}
-
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { ArrowDown, ArrowRight, ArrowUpRight, Asterisk, Send, Sparkles } from "lucide-react";
+import { journey, profile, projects } from "../content/profile";
+import { ContactBanner, SectionHeading, WorkCard } from "../components/Editorial";
+const selected = ["ai-land-deal-engine", "pharmeasy-quick-commerce", "conversational-portfolio"];
+const services = [
+  { title: "Put AI to work.", description: "From finding the right use cases to helping your teams adopt them.", tag: "AI STRATEGY & ADOPTION", id: "genai-adoption", color: "blue" },
+  { title: "Build the better way.", description: "Turn a slow, manual process into a tool your team actually uses.", tag: "TOOLS & AUTOMATION", id: "decision-tools", color: "peach" },
+  { title: "Make growth work.", description: "Operating models, unit economics and the messy business of scaling.", tag: "OPERATIONS & P&L", id: "ops-turnaround", color: "green" },
+  { title: "Find your next chapter.", description: "A thinking partner for your MBA journey or your next career move.", tag: "CAREER & MBA MENTORING", id: "mentoring", color: "yellow" },
+];
 export default function Classic() {
-  const reduce = useReducedMotion();
-  const fade = (delay = 0) => ({
-    initial: reduce ? false : { opacity: 0, y: 12 },
-    animate: { opacity: 1, y: 0 },
-    transition: { duration: 0.35, delay, ease: "easeOut" as const },
-  });
-
-  return (
-    <div className="mx-auto w-full max-w-6xl px-4 sm:px-6">
-      {/* Hero */}
-      <section className="grid items-center gap-10 py-14 sm:py-20 lg:grid-cols-[1.25fr_1fr]">
-        <div>
-          <motion.ul {...fade(0)} aria-label="In four words" className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs font-semibold uppercase tracking-wider text-accent">
-            {profile.fourWords.map((w, i) => (
-              <li key={w} className="flex items-center gap-3">
-                {i > 0 && <span aria-hidden="true" className="h-1 w-1 rounded-full bg-accent/50" />}
-                {w}
-              </li>
-            ))}
-          </motion.ul>
-          <motion.h1 {...fade(0.05)} className="font-display mt-4 text-[2.4rem] leading-[1.05] sm:text-6xl">
-            {profile.identity}
-          </motion.h1>
-          <motion.p {...fade(0.1)} className="mt-6 max-w-2xl text-lg leading-8 text-fg/85">
-            {profile.offerSub}
-          </motion.p>
-          <motion.div {...fade(0.15)} className="mt-8 flex flex-wrap items-center gap-3">
-            <Link to="/chat" className="inline-flex h-11 items-center gap-2 rounded-xl bg-fg px-5 text-sm font-semibold text-bg transition-opacity hover:opacity-90">
-              <MessageSquare size={16} aria-hidden="true" /> Ask me anything
-            </Link>
-            <a
-              href={profile.topmate}
-              target="_blank"
-              rel="noreferrer noopener"
-              className="inline-flex h-11 items-center gap-2 rounded-xl bg-accent px-5 text-sm font-semibold text-accent-fg transition-opacity hover:opacity-90"
-            >
-              <CalendarDays size={16} aria-hidden="true" /> Book a call
-            </a>
-            <a href="#offers" className="inline-flex h-11 items-center gap-1.5 px-2 text-sm font-medium text-muted hover:text-fg">
-              How I can help <ArrowRight size={15} aria-hidden="true" />
-            </a>
-          </motion.div>
+  const [question, setQuestion] = useState("");
+  const navigate = useNavigate();
+  return <div className="editorial-page">
+    <section className="hero page-width">
+      <div className="hero-copy">
+        <p className="eyebrow">
+          <span className="status-dot" /> OPERATOR. BUILDER. ADVISOR.</p>
+        <p className="hero-intro">Hi, I’m Chirag.</p>
+        <h1>I build businesses.<br />Now I build<br />
+          <em>with AI.</em>
+          <Asterisk className="hero-asterisk" aria-hidden="true" />
+        </h1>
+        <p className="hero-description">Thirteen years turning complex problems into businesses that work. Today, bringing that same operator’s instinct to AI.</p>
+        <div className="hero-actions">
+          <Link className="button button-dark" to="/work">Explore my work <ArrowUpRight size={17} />
+          </Link>
+          <Link className="text-link" to="/consulting">Work with me <ArrowRight size={17} />
+          </Link>
         </div>
-        <motion.figure {...fade(0.1)} className="relative mx-auto w-full max-w-sm lg:max-w-none">
-          <img
-            src={profile.aboutPhoto}
-            alt={`${profile.name} outdoors`}
-            width={900}
-            height={1200}
-            className="aspect-[4/5] w-full rounded-3xl object-cover object-top shadow-card ring-1 ring-line"
-            loading="eager"
-          />
-          <figcaption className="absolute bottom-4 left-4 right-4 rounded-2xl border border-line bg-surface/90 p-3 text-sm backdrop-blur">
-            <span className="font-semibold">{profile.name}</span>
-            <span className="text-muted"> · {profile.location} · currently at M3M, ex-PharmEasy, IIM Ahmedabad PGPX</span>
-          </figcaption>
-        </motion.figure>
-      </section>
-
-      {/* Career arc */}
-      <div className="rounded-2xl border border-line bg-surface px-4 py-6 shadow-card sm:px-8">
-        <JourneyStrip />
+        <div className="hero-footnote">
+          <span /> Currently leading AI transformation at M3M<br />
+          <span className="footnote-indent">IIM Ahmedabad PGPX · Gurgaon, India</span>
+        </div>
       </div>
-
-      <Section id="offers" eyebrow="How I can help" title="Four ways we can work together" aside={<p className="max-w-sm text-sm text-muted">Every engagement starts with a call. Availability and pricing live on Topmate.</p>}>
-        <OffersGrid columns={2} />
-      </Section>
-
-      <Section
-        id="work"
-        eyebrow="Selected work"
-        title="The proof behind the offers"
-        aside={<p className="max-w-sm text-sm text-muted">All {projects.length} projects, with the numbers. Click any card for problem, approach and outcome.</p>}
-      >
-        <ProjectGrid />
-      </Section>
-
-      <Section id="career" eyebrow="Career" title="Thirteen years, seven chapters" aside={<p className="max-w-sm text-sm text-muted">From after-sales at General Motors to leading AI transformation. Tap a role to expand it.</p>}>
-        <div className="grid gap-6 lg:grid-cols-[1.4fr_1fr]">
-          <ExperienceTimeline />
-          <div className="space-y-6">
-            <div>
-              <h3 className="text-xs font-semibold uppercase tracking-wider text-muted">Education</h3>
-              <ul className="mt-3 divide-y divide-line rounded-2xl border border-line bg-surface">
-                {education.map((e) => (
-                  <li key={e.degree} className="p-4">
-                    <p className="text-[15px] font-semibold leading-5">{e.school}</p>
-                    <p className="text-sm text-fg/85">
-                      {e.degree} · {e.years}
-                    </p>
-                    <p className="mt-1 text-sm text-muted">{e.note}</p>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div>
-              <h3 className="text-xs font-semibold uppercase tracking-wider text-muted">Recognition</h3>
-              <ul className="mt-3 space-y-2 rounded-2xl border border-line bg-surface p-4 text-sm leading-6">
-                {achievements.map((a) => (
-                  <li key={a} className="flex gap-2">
-                    <span aria-hidden="true" className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
-                    {a}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
+      <div className="hero-visual">
+        <div className="photo-backing" />
+        <figure className="hero-photo">
+          <img src={profile.aboutPhoto} alt="Chirag Doshi travelling in the mountains" width={900} height={1200} fetchPriority="high" />
+          <figcaption>A little perspective, away from the spreadsheets.</figcaption>
+        </figure>
+        <div className="photo-note">
+          <span>ALWAYS</span>
+          <strong>curious.</strong>
+          <svg viewBox="0 0 70 36" aria-hidden="true">
+            <path d="M2 4 Q20 38 62 17 M48 14 L65 17 L54 30" fill="none" stroke="currentColor" strokeWidth="2" />
+          </svg>
         </div>
-      </Section>
-
-      <Section id="skills" eyebrow="Toolkit" title="Business, operations and AI — in one head">
-        <SkillsCloud />
-      </Section>
-
-      <Section id="ask" eyebrow="Prefer a conversation?" title="Ask the site anything about my work" aside={<p className="max-w-sm text-sm text-muted">Same content, answered as cards. Dates, companies, projects — or something I haven't thought of.</p>}>
-        <div className="flex flex-wrap gap-2">
-          {suggestions.home.map((q) => (
-            <Link key={q} to={`/chat?q=${encodeURIComponent(q)}`} className="rounded-full border border-line bg-surface px-4 py-2 text-sm hover:bg-surface-2">
-              {q}
-            </Link>
-          ))}
-        </div>
-      </Section>
-
-      <Section id="contact" eyebrow="Contact" title="Let's talk">
-        <div className="grid gap-6 lg:grid-cols-[1fr_1fr]">
-          <p className="max-w-xl text-lg leading-8 text-fg/85">
-            The fastest way is a call on Topmate. For anything else — a question, an introduction, a note about something I wrote — LinkedIn and email both reach me within a day.
-          </p>
-          <div className="flex flex-wrap gap-2 lg:justify-end">
-            <a href={profile.topmate} target="_blank" rel="noreferrer noopener" className="inline-flex h-11 items-center gap-2 rounded-xl bg-accent px-5 text-sm font-semibold text-accent-fg hover:opacity-90">
-              <CalendarDays size={16} aria-hidden="true" /> Book a call
-            </a>
-            <a href={profile.linkedin} target="_blank" rel="noreferrer noopener" className="inline-flex h-11 items-center gap-2 rounded-xl border border-line bg-surface px-5 text-sm font-medium hover:bg-surface-2">
-              <LinkedInIcon size={16} aria-hidden="true" /> LinkedIn
-            </a>
-            <a href={`mailto:${profile.email}`} className="inline-flex h-11 items-center gap-2 rounded-xl border border-line bg-surface px-5 text-sm font-medium hover:bg-surface-2">
-              <Mail size={16} aria-hidden="true" /> Email
-            </a>
-          </div>
-        </div>
-      </Section>
-
-      <footer className="flex flex-col items-start justify-between gap-2 border-t border-line py-8 text-xs text-muted sm:flex-row sm:items-center">
-        <p>
-          © {new Date().getFullYear()} {profile.name} · {profile.location}
-        </p>
-        <p>One profile, three interfaces — switch views in the top bar.</p>
-      </footer>
+        <Link to="/about" className="portrait-stamp">
+          <span>MORE THAN<br />A JOB TITLE</span>
+          <ArrowUpRight size={23} />
+        </Link>
+      </div>
+    </section>
+    <div className="career-ribbon page-width">
+      <p>A FEW CHAPTERS<br />
+        <span>of the journey so far</span>
+      </p>
+      <div>{journey.map(c => <Link key={c.name} to="/about#career">
+        <span>{c.year}</span>
+        <strong>{c.name}</strong>
+      </Link>)}</div>
     </div>
-  );
+    <section className="page-width section-space" id="work">
+      <SectionHeading number="01" label="SELECTED WORK" title={<>Ideas are good.<br />
+        <em>Making them work is better.</em>
+      </>}>
+        <Link className="text-link" to="/work">All work & case studies <ArrowUpRight size={17} />
+        </Link>
+      </SectionHeading>
+      <div className="work-grid">{selected.map(slug => <WorkCard key={slug} project={projects.find(p => p.slug === slug)!} />)}</div>
+    </section>
+    <section className="ask-section">
+      <div className="page-width ask-layout">
+        <div>
+          <p className="eyebrow">
+            <Sparkles size={15} /> MEET THE INTERACTIVE SIDE</p>
+          <h2>Skip the scrolling.<br />
+            <em>Ask a good question.</em>
+          </h2>
+          <p>Explore my work, the decisions behind it, and how we could work together. This little corner of the internet answers back.</p>
+          <Link className="text-link" to="/project/conversational-portfolio">How I built this <ArrowUpRight size={16} />
+          </Link>
+        </div>
+        <div className="ask-preview">
+          <div className="ask-preview-heading">
+            <img src={profile.avatar} width={38} height={38} alt="" />
+            <div>
+              <strong>Ask about Chirag</strong>
+              <span>Grounded in my work & project notes</span>
+            </div>
+            <span className="status-dot" />
+          </div>
+          <p>Where would you like to start?</p>
+          <div className="ask-prompts">{["What have you built with AI?", "How can you help my business?", "Tell me about your career"].map(q => <Link key={q} to={`/chat?q=${encodeURIComponent(q)}`}>{q}<ArrowUpRight size={16} />
+          </Link>)}</div>
+          <form onSubmit={e => {
+            e.preventDefault(); if (question.trim())
+              navigate(`/chat?q=${encodeURIComponent(question.trim())}`);
+          }}>
+            <label className="sr-only" htmlFor="home-question">Ask about Chirag’s work</label>
+            <input id="home-question" maxLength={400} value={question} onChange={e => setQuestion(e.target.value)} placeholder="Or ask your own question…" />
+            <button aria-label="Ask your question" disabled={!question.trim()}>
+              <Send size={18} />
+            </button>
+          </form>
+          <small>Curated answers and profile search. No sign-up needed.</small>
+        </div>
+      </div>
+    </section>
+    <section className="page-width section-space" id="offers">
+      <SectionHeading number="02" label="WORK WITH ME" title={<>Big-picture thinking.<br />
+        <em>Sleeves-rolled-up help.</em>
+      </>}>
+        <p className="section-aside">Select advisory work on weekends.<br />Built on experience in the operating seat.</p>
+      </SectionHeading>
+      <div className="service-grid">{services.map((s, i) => <Link key={s.id} to={`/consulting#${s.id}`} className={`service-card tint-${s.color}`}>
+        <span className="service-number">0{i + 1}<ArrowUpRight size={20} />
+        </span>
+        <h3>{s.title}</h3>
+        <p>{s.description}</p>
+        <span className="eyebrow">{s.tag}</span>
+      </Link>)}</div>
+    </section>
+    <section className="page-width story-teaser">
+      <div className="story-photo">
+        <img src={profile.iimaPhoto} alt="Chirag at IIM Ahmedabad with a stack of course books" width={900} height={1200} loading="lazy" />
+        <span>THE LEARNING NEVER STOPS.</span>
+      </div>
+      <div>
+        <p className="eyebrow">03 <span>THE PERSON BEHIND THE WORK</span>
+        </p>
+        <h2>Many chapters.<br />
+          <em>One curious mind.</em>
+        </h2>
+        <p>From dealer networks at General Motors to a founder’s first product. From scaling healthcare businesses to a year back in the classroom at IIM Ahmedabad.</p>
+        <p>Today, those experiences come together in how I approach AI: understand the business, build the tool, and make it useful.</p>
+        <Link className="text-link" to="/about">A little more about me <ArrowRight size={18} />
+        </Link>
+      </div>
+    </section>
+    <section className="page-width lab-invitation">
+      <div>
+        <p className="eyebrow">FOR THE CURIOUS</p>
+        <h3>A few things from the workbench.</h3>
+        <p>Small experiments, useful tools and a terminal you can actually type into.</p>
+      </div>
+      <Link className="button button-outline" to="/lab">Step into the lab <ArrowUpRight size={18} />
+      </Link>
+      <ArrowDown className="lab-decoration" aria-hidden="true" />
+    </section>
+    <div className="page-width">
+      <ContactBanner />
+    </div>
+  </div>;
 }

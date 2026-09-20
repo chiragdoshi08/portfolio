@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { motion, useReducedMotion } from "framer-motion";
 import { LayoutTemplate, MessageSquare, TerminalSquare, X } from "lucide-react";
@@ -16,15 +16,10 @@ export default function ViewSwitcher({ full = false }: { full?: boolean }) {
   const { pathname } = useLocation();
   const active = modeForPath(pathname);
   const reduce = useReducedMotion();
-  const [hint, setHint] = useState(false);
-
-  useEffect(() => {
-    try {
-      if (!localStorage.getItem(HINT_KEY)) setHint(true);
-    } catch {
-      /* ignore */
-    }
-  }, []);
+  const [hint, setHint] = useState(() => {
+    try { return typeof localStorage !== "undefined" && !localStorage.getItem(HINT_KEY); }
+    catch { return false; }
+  });
 
   function dismiss() {
     setHint(false);

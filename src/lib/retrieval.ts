@@ -1,7 +1,7 @@
 // Tiny BM25 retriever over the profile content. Pure TypeScript with no browser
 // or Node dependencies so it can run both in the SPA and in the serverless function.
 
-import { achievements, education, offers, profile, projects, roles, skills } from "../content/profile";
+import { achievements, education, offers, profile, projects, roles, skills, storyChapters, mottos } from "../content/profile";
 
 export type Chunk = { id: string; title: string; text: string };
 
@@ -18,7 +18,7 @@ export function tokenize(s: string): string[] {
     .replace(/[-–—_/]+/g, " ") // hyphenated terms match their parts ("land-deal" → "land deal")
     .replace(/[^a-z0-9+&%.\s]/g, " ")
     .split(/\s+/)
-    .map((t) => t.replace(/^[.\-]+|[.\-]+$/g, ""))
+    .map((t) => t.replace(/^[.-]+|[.-]+$/g, ""))
     .filter((t) => t.length > 1 && !STOP.has(t))
     .map((t) => (t.endsWith("s") && t.length > 4 ? t.slice(0, -1) : t)); // light plural folding
 }
@@ -72,6 +72,8 @@ export function buildChunks(): Chunk[] {
     title: "Contact",
     text: `Email ${profile.email}. LinkedIn ${profile.linkedin}. Location ${profile.location}. There is no CV download; the site itself is the up-to-date profile, and the best next step is a call on Topmate.${profile.showPhone ? ` Phone ${profile.phone}.` : ""}`,
   });
+  chunks.push({ id: "story", title: "My story and career chapters", text: storyChapters.map(c => `${c.years}: ${c.title} ${c.text}`).join("\n\n") });
+  chunks.push({ id: "mottos", title: "Personal mottos and philosophy", text: mottos.map(m => `${m.text} — ${m.source}`).join("\n\n") });
   return chunks;
 }
 

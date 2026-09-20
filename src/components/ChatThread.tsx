@@ -33,7 +33,7 @@ export default function ChatThread({ messages, threadKey, heading }: Props) {
             initial={reduce ? false : { opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.25, ease: "easeOut" }}
-            className={m.role === "user" ? "flex scroll-mt-20 justify-end" : "flex gap-3"}
+            className={m.role === "user" ? "flex scroll-mt-28 justify-end" : "flex gap-3"}
           >
             {m.role === "user" ? (
               <p className="max-w-[85%] rounded-2xl rounded-br-md bg-user-bubble px-4 py-2.5 text-[15px] leading-6 text-user-bubble-fg">{m.text}</p>

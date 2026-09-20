@@ -1,9 +1,7 @@
 import { CalendarDays, Check } from "lucide-react";
-import { offers, profile, type Offer } from "../../content/profile";
+import { offers } from "../../content/profile";
 
-export function topmateUrl(o: Offer) {
-  return o.topmatePath ? `${profile.topmate.replace(/\/$/, "")}/${o.topmatePath.replace(/^\//, "")}` : profile.topmate;
-}
+import { topmateUrl } from "../../lib/offers";
 
 export default function OffersGrid({ ids, columns = 1 }: { ids?: string[]; columns?: 1 | 2 }) {
   const list = ids ? offers.filter((o) => ids.includes(o.id)) : offers;

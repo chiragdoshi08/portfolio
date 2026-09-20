@@ -97,7 +97,7 @@ export default function Desktop() {
   );
 
   return (
-    <div className="desktop-bg relative min-h-[calc(100dvh-4rem)] overflow-hidden">
+    <div className="desktop-bg relative min-h-[calc(100dvh-var(--header-height))] overflow-hidden">
       <h1 className="sr-only">
         {profile.name} — desktop view
       </h1>
@@ -113,7 +113,7 @@ export default function Desktop() {
         </div>
       ) : (
         // Desktop: the area stops 6rem above the viewport bottom, leaving the dock its own lane.
-        <div ref={areaRef} className="relative h-[calc(100dvh-4rem-6rem)] overflow-hidden">
+        <div ref={areaRef} className="relative h-[calc(100dvh-var(--header-height)-6rem)] overflow-hidden">
           {WINDOWS.filter((w) => open.includes(w.id)).map((w) => (
             <motion.div
               key={w.id}

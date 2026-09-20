@@ -3,7 +3,7 @@ import { create } from "zustand";
 type ThemeState = { dark: boolean; toggle: () => void };
 
 function readInitial(): boolean {
-  return document.documentElement.classList.contains("dark");
+  return typeof document !== "undefined" && document.documentElement.classList.contains("dark");
 }
 
 export const useTheme = create<ThemeState>((set, get) => ({

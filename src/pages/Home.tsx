@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import ChatThread from "../components/ChatThread";
 import { assistant, useChat } from "../store/chat";
 import { profile, suggestions } from "../content/profile";
@@ -29,5 +29,5 @@ export default function Home() {
     }
   }, [params, setParams, ask]);
 
-  return <ChatThread messages={threads.home} threadKey="home" heading={`${profile.name} — ${profile.headline}`} />;
+  return <><header className="chat-heading"><p className="eyebrow">A PROFILE THAT ANSWERS BACK</p><h2>What would you like to know?</h2><p>Explore the work, the career, or how we could work together.</p><nav className="view-pills" aria-label="Ways to explore"><Link to="/">Read it</Link><Link className="active" aria-current="page" to="/chat">Ask it</Link><Link to="/desktop">Type it</Link></nav></header><ChatThread messages={threads.home} threadKey="home" heading={`${profile.name} — ${profile.headline}`} /></>;
 }

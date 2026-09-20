@@ -1,5 +1,24 @@
 # HANDOFF — chiragdoshi.com
 
+## Website redesign — 20 September 2026
+
+A new redesign supersedes the route and implementation notes below. Chirag requested publishing this checkpoint on 20 September 2026 and parking further design work. This is an interim version; resume improvements when requested. The GitHub Pages workflow records deployment status.
+
+- `/` now opens the editorial homepage. `/classic` remains a compatible alias.
+- `/work` (also `/projects`) is a searchable case-study collection; `/about` is a narrative plus full career; `/consulting` has service selection and Topmate deep links; `/lab` includes an illustrative workflow-time estimator. `/chat` and `/desktop` remain available.
+- Warm ivory/cobalt design, existing real photos, illustrated project cards, responsive navigation and dark mode.
+- Both Drive master profiles and both two-page CV Docs were read. Retail GMV corrected to ₹80 lakh, separate from Health Partner Network’s ₹4Cr+. Organisation size updated to 600+ with context for restructuring to approximately 430.
+- Chirag reconfirmed **300+ M3M GenAI users** during the redesign. The previously approved M3M title is retained.
+- Narrative chapters and mottos are available to local search and terminal. Added this website as a case study. No invented personal anecdotes or testimonials.
+- Static-host chat no longer calls an unavailable API. All retrieval chunk types now render. Optional model fallback requires `VITE_ENABLE_AI_FALLBACK=true` on a server-capable host.
+- Production build renders full HTML and metadata for every route and generates a sitemap and 404 page. The workflow must not overwrite rendered pages with copies of the homepage.
+- Run `npm run typecheck`, `npm test`, `npm run lint`, `npm run build`, and `node scripts/check-build.mjs`. Browser QA covers mobile and desktop, both themes, chat, search, services and calculator.
+- Further personal stories, additional photos, testimonials and future articles can be added as material becomes available.
+
+The original handoff is preserved below as historical context.
+
+---
+
 Last updated: 20 September 2026. Written for whoever picks this up next (Chirag, or a future Claude session). Everything below reflects the repo at commit `ca8a3ed`.
 
 ---
