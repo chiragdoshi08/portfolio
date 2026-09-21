@@ -11,7 +11,7 @@ export default function TopBar() {
   return <header className="site-header">
     <div className="page-width header-row">
       <Link className="header-brand" to="/" aria-label="Chirag Doshi — home">
-        <img src="/images/avatar.jpg" alt="" width={64} height={64} />
+        <img src="/images/avatar.jpg" alt="" width={40} height={40} />
         <span>Chirag Doshi</span>
       </Link>
       <nav className="desktop-nav" aria-label="Main navigation">{links.map(l => <NavLink key={l.to} to={l.to}>{l.label}</NavLink>)}</nav>

@@ -236,21 +236,24 @@ button:disabled {
 .header-brand {
   display: inline-flex;
   align-items: center;
-  gap: 16px;
+  gap: 11px;
   flex-shrink: 0;
   color: inherit;
-  font-size: 28px;
-  font-weight: 600;
-  letter-spacing: -.5px;
+  font-family: var(--font-display);
+  font-size: 25px;
+  font-weight: 400;
+  letter-spacing: -.7px;
+  line-height: 1.1;
   white-space: nowrap;
 }
 
 .header-brand img {
-  width: 64px;
-  height: 64px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid var(--line);
+  border: 1px solid var(--line);
+  filter: saturate(.8);
 }
 
 .wordmark span {
@@ -2262,11 +2265,11 @@ h2 {
   }
   .header-brand {
     gap: 8px;
-    font-size: 17px;
+    font-size: 21px;
   }
   .header-brand img {
-    width: 34px;
-    height: 34px;
+    width: 32px;
+    height: 32px;
   }
   .wordmark {
     font-size: 22px;
@@ -2640,7 +2643,7 @@ h2 {
 @media(max-width:380px) {
   .header-brand {
     gap: 7px;
-    font-size: 15px;
+    font-size: 18px;
   }
   .header-brand img {
     width: 28px;

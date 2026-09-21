@@ -1,4 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
   <rect width="64" height="64" rx="16" fill="#3458ca"/>
-  <text x="32" y="41" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="30" font-weight="500" fill="#ffffff" letter-spacing="-1">CD</text>
+  <g fill="#f8f7f2">
+    <path d="M34 15L32 26H29C30 20 28 17 24 18C17 19 12 31 13 40C14 49 21 49 28 42L30 44C24 54 10 53 8 43C4 31 13 14 24 13C28 12 31 14 32 16L34 15Z"/>
+    <path fill-rule="evenodd" d="M34 17C42 13 54 14 55 25C57 38 48 50 35 50H26L27 47H31L38 19H33ZM43 19L36 46C43 46 48 39 50 30C52 21 49 18 43 19Z"/>
+  </g>
 </svg>
