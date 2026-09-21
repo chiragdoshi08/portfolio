@@ -10,8 +10,9 @@ export default function TopBar() {
   const open = openPath === pathname;
   return <header className="site-header">
     <div className="page-width header-row">
-      <Link className="wordmark" to="/" aria-label="Chirag Doshi — home">chirag<span>doshi.</span>
-        <i />
+      <Link className="header-brand" to="/" aria-label="Chirag Doshi — home">
+        <img src="/images/avatar.jpg" alt="" width={64} height={64} />
+        <span>Chirag Doshi</span>
       </Link>
       <nav className="desktop-nav" aria-label="Main navigation">{links.map(l => <NavLink key={l.to} to={l.to}>{l.label}</NavLink>)}</nav>
       <div className="header-actions">
